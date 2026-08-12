@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quidly — Merchant Dashboard Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1e63f2;
+  --blue-dark:#1557dc;
+  --green:#6caf08;
+  --ink:#101828;
+  --text:#344054;
+  --muted:#667085;
+  --light:#98a2b3;
+  --line:#e7eaf0;
+  --bg:#f7f9fc;
+  --card:#fff;
+  --soft:#eef4ff;
+  --soft-green:#eef8e5;
+  --danger:#ef476f;
+  --shadow:0 8px 28px rgba(16,24,40,.06);
+  --gradient:linear-gradient(135deg,#1e63f2 0%,#2f7cf0 48%,#6caf08 100%);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+button{font:inherit;cursor:pointer}
+.app{min-height:100vh}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:248px;background:#fff;border-right:1px solid var(--line);padding:22px 15px;z-index:20;display:flex;flex-direction:column}
+.brand{padding:4px 12px 24px;display:flex;align-items:center;position:relative}.brand:after{content:'';width:28px;height:3px;border-radius:99px;background:var(--green);position:absolute;left:12px;bottom:15px}
+.logo{font-size:27px;line-height:1;font-weight:800;letter-spacing:-1.8px}
+.logo .q{color:var(--green)} .logo .id{color:var(--blue)}
+.profile{border:1px solid var(--line);border-radius:14px;padding:12px;margin:0 4px 20px;display:flex;align-items:center;gap:10px}
+.avatar{width:38px;height:38px;border-radius:11px;background:#eaf0ff;color:var(--blue);display:grid;place-items:center;font-size:11px;font-weight:800;flex:none}
+.profile strong{display:block;color:var(--ink);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:145px}
+.profile small{display:block;color:var(--muted);font-size:9px;margin-top:3px}
+.label{font-size:9px;color:var(--light);font-weight:800;letter-spacing:1.2px;padding:8px 11px}
+.nav{display:grid;gap:4px}
+.nav button{border:0;background:transparent;text-align:left;width:100%;padding:11px 12px;border-radius:10px;color:#667085;font-weight:600;font-size:12px;display:flex;align-items:center;gap:11px;transition:.18s}
+.nav button:hover{background:#f5f7fb;color:var(--ink)}
+.nav button.active{background:rgba(108,175,8,.10);color:#5f9d07;box-shadow:inset 3px 0 var(--green),0 0 18px rgba(108,175,8,.10)}
+.nav button .icon{width:18px;text-align:center;font-size:14px;opacity:.9}
+.nav button .chev{margin-left:auto;color:#98a2b3;font-size:10px}
+.subnav{display:grid;gap:2px;margin:0 0 5px 30px;padding-left:10px;border-left:1px solid #e7eaf0;overflow:hidden;max-height:0;opacity:0;transition:max-height .22s ease,opacity .18s ease}
+.nav-group.open .subnav{max-height:180px;opacity:1}
+.subnav button{border:0;background:transparent;text-align:left;width:100%;padding:8px 9px;border-radius:8px;color:#7a8596;font-size:10px;font-weight:600}
+.subnav button:hover{background:#f5f7fb;color:var(--ink)}
+.nav-group>.nav-trigger .chev{transition:transform .2s ease}
+.nav-group.open>.nav-trigger .chev{transform:rotate(90deg);color:var(--blue)}
+
+.account{margin-top:auto}
+.main{margin-left:248px;min-height:100vh}
+.top{height:68px;background:rgba(255,255,255,.94);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px;position:sticky;top:0;z-index:10;backdrop-filter:blur(14px)}
+.crumb{font-size:11px;color:var(--muted)} .crumb b{color:var(--ink)}
+.top-actions{display:flex;align-items:center;gap:8px}
+.circle{width:36px;height:36px;border:1px solid var(--line);border-radius:50%;background:#fff;color:#667085}
+.user-chip{height:36px;border:1px solid var(--line);border-radius:20px;background:#fff;padding:0 10px 0 5px;display:flex;align-items:center;gap:7px;font-size:10px;font-weight:700;color:var(--ink)}
+.user-chip .mini-avatar{width:26px;height:26px;border-radius:50%;background:#eaf0ff;color:var(--blue);display:grid;place-items:center;font-size:9px}
+.mobile-toggle{display:none}
+.wrap{max-width:1440px;margin:auto;padding:30px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;margin-bottom:22px}
+.eyebrow{font-size:9px;letter-spacing:1.25px;color:#7a8596;font-weight:800}
+h1{margin:5px 0 4px;color:var(--ink);font-size:28px;letter-spacing:-1px}
+.sub{margin:0;color:var(--muted);font-size:11px}
+.actions{display:flex;gap:8px}
+.btn{border:1px solid var(--line);background:#fff;color:#475467;border-radius:10px;padding:10px 14px;font-size:10px;font-weight:700}
+.btn.primary{border:0;color:#fff;background:var(--green);box-shadow:0 9px 22px rgba(108,175,8,.20)}
+.btn.primary:hover{background:#5f9d07;transform:translateY(-1px);box-shadow:0 10px 24px rgba(108,175,8,.24)}
+.overview{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:14px;margin-bottom:14px}
+.balance{background:linear-gradient(145deg,#6caf08 0%,#78bd18 58%,#5f9d07 100%);color:#fff;border-radius:18px;padding:22px;min-height:175px;position:relative;overflow:hidden;box-shadow:0 15px 38px rgba(108,175,8,.28),0 0 30px rgba(108,175,8,.12)}
+.balance:after{content:"";position:absolute;width:280px;height:280px;border-radius:50%;right:-125px;top:-165px;background:rgba(255,255,255,.16)}
+.balance>*{position:relative;z-index:1}
+.balance-top{display:flex;justify-content:space-between;align-items:center}
+.balance-label{font-size:9px;font-weight:800;letter-spacing:.9px;color:rgba(255,255,255,.76)}
+.badge{font-size:8px;font-weight:800;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2)}
+.amount{font-size:31px;font-weight:800;letter-spacing:-1.3px;margin-top:22px}
+.balance-foot{display:flex;justify-content:space-between;margin-top:24px;font-size:9px;color:rgba(255,255,255,.78)}
+.metric{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow);min-height:175px}
+.metric-top{display:flex;justify-content:space-between;align-items:center}
+.metric-label{font-size:9px;font-weight:800;letter-spacing:.7px;color:var(--muted)}
+.metric-icon{width:34px;height:34px;border-radius:10px;background:var(--soft);color:var(--blue);display:grid;place-items:center;font-size:14px}
+.metric strong{display:block;color:var(--ink);font-size:25px;letter-spacing:-.7px;margin-top:23px}
+.metric .change{font-size:9px;font-weight:700;color:#0b8b62;margin-top:5px}
+.metric .muted{color:var(--muted);font-weight:500}
+.grid{display:grid;grid-template-columns:1.55fr .85fr;gap:14px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.panel-head{display:flex;align-items:center;justify-content:space-between;padding:18px 19px 12px}
+.panel-head h2{font-size:13px;color:var(--ink);margin:0}
+.panel-head p{font-size:9px;color:var(--muted);margin:4px 0 0}
+.select{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 10px;font-size:9px;color:#475467}
+.chart{padding:8px 19px 18px;height:245px}
+.chart svg{width:100%;height:100%}
+.chart-label{font-size:9px;fill:#98a2b3}
+.donut-wrap{padding:7px 20px 20px;display:flex;align-items:center;gap:18px}
+.donut{width:128px;height:128px;border-radius:50%;background:conic-gradient(var(--blue) 0 62%,#78b52a 62% 81%,#dce6fb 81% 100%);position:relative;flex:none}
+.donut:after{content:"";position:absolute;inset:25px;background:#fff;border-radius:50%}
+.donut-center{position:absolute;inset:0;display:grid;place-items:center;z-index:1;text-align:center}
+.donut-center strong{font-size:18px;color:var(--ink);display:block}
+.donut-center span{font-size:8px;color:var(--muted)}
+.legend{display:grid;gap:12px;width:100%}
+.legend-row{display:flex;align-items:center;justify-content:space-between;font-size:9px;color:var(--muted)}
+.legend-row b{color:var(--ink)}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:7px}
+.blue{background:var(--blue)} .green{background:#78b52a} .gray{background:#dce6fb}
+.table-panel{margin-top:14px}
+.table-wrap{overflow:auto;padding:0 19px 17px}
+table{width:100%;border-collapse:collapse;min-width:650px}
+th,td{text-align:left;border-bottom:1px solid #edf0f5;padding:12px 8px;font-size:9px}
+th{text-transform:uppercase;color:#98a2b3;font-size:8px;font-weight:800}
+td strong{color:var(--ink)}
+.status{display:inline-block;padding:5px 8px;border-radius:99px;font-size:7px;font-weight:800}
+.success{background:#e8f8f1;color:#0b8b62}.pending{background:#fff5df;color:#a56a00}.failed{background:#fff0ef;color:#d64545}
+.empty{padding:35px 20px;text-align:center;color:var(--muted)}
+.empty-icon{width:46px;height:46px;border-radius:14px;background:var(--soft);color:var(--blue);display:grid;place-items:center;margin:0 auto 11px;font-size:18px}
+.empty strong{display:block;color:var(--ink);font-size:12px;margin-bottom:4px}
+.empty span{font-size:9px}
+.quick{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:5px 19px 19px}
+.quick button{border:1px solid var(--line);background:#fff;border-radius:11px;padding:12px 10px;text-align:left;font-size:9px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:9px}
+.quick button:hover{background:#f8faff;border-color:#dbe5ff}
+.quick i{width:30px;height:30px;border-radius:9px;background:var(--soft-green);color:var(--green);display:grid;place-items:center;font-style:normal}
+.footer{padding:20px 0 8px;color:#98a2b3;font-size:9px;display:flex;justify-content:space-between}
+@media(max-width:1050px){.overview{grid-template-columns:1fr 1fr}.balance{grid-column:1/-1}.grid{grid-template-columns:1fr}}
+@media(max-width:760px){
+ .sidebar{transform:translateX(-100%);transition:.2s}.sidebar.open{transform:none;box-shadow:20px 0 50px rgba(16,24,40,.15)}
+ .main{margin-left:0}.mobile-toggle{display:block}.top{padding:0 15px}.crumb{display:none}.wrap{padding:18px}.head{flex-direction:column;align-items:flex-start}.actions{width:100%}.actions .btn{flex:1}.overview{grid-template-columns:1fr}.balance{grid-column:auto}.footer{flex-direction:column;gap:7px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="logo"><span class="q">qui</span><span class="id">dly</span></div></div>
+  <div class="profile">
+    <div class="avatar">PU</div>
+    <div><strong>Pullmids</strong><small>Merchant account</small></div>
+  </div>
+
+  <div class="label">WORKSPACE</div>
+  <nav class="nav">
+    <button class="active"><span class="icon">⌂</span>Dashboard</button>
+
+    <div class="nav-group" id="paymentsGroup">
+      <button class="nav-trigger" onclick="toggleNav('paymentsGroup')"><span class="icon">↗</span>Payments<span class="chev">›</span></button>
+      <div class="subnav">
+        <button onclick="toast('Invoices opened')">Invoices</button>
+        <button onclick="toast('Creditlist opened')">Creditlist</button>
+      </div>
+    </div>
+
+    <div class="nav-group" id="transactionsGroup">
+      <button class="nav-trigger" onclick="toggleNav('transactionsGroup')"><span class="icon">▤</span>Transactions<span class="chev">›</span></button>
+      <div class="subnav">
+        <button onclick="toast('Transactions opened')">Transactions</button>
+        <button onclick="toast('Refunds opened')">Refunds</button>
+      </div>
+    </div>
+
+    <div class="nav-group" id="accountsGroup">
+      <button class="nav-trigger" onclick="toggleNav('accountsGroup')"><span class="icon">◉</span>Accounts<span class="chev">›</span></button>
+      <div class="subnav">
+        <button onclick="toast('Sub-accounts opened')">Sub-accounts</button>
+        <button onclick="toast('Banks opened')">Banks</button>
+        <button onclick="toast('Settlement opened')">Settlement</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="label" style="margin-top:10px">MANAGEMENT</div>
+  <nav class="nav">
+    <div class="nav-group" id="settingsGroup">
+      <button class="nav-trigger" onclick="toggleNav('settingsGroup')"><span class="icon">⚙</span>Settings<span class="chev">›</span></button>
+      <div class="subnav">
+        <button onclick="toast('Compliance opened')">Compliance</button>
+        <button onclick="toast('API keys opened')">API-keys</button>
+        <button onclick="toast('Profile opened')">Profile</button>
+      </div>
+    </div>
+    <button onclick="toast('Documentation navigation')"><span class="icon">▧</span>Documentation</button>
+  </nav>
+
+  <div class="account">
+    <div class="label">ACCOUNT</div>
+    <div class="profile" style="margin-bottom:0">
+      <div class="avatar">PU</div>
+      <div><strong>Pullmids</strong><small>Account settings</small></div>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+<header class="top">
+  <button class="circle mobile-toggle" onclick="toggleSidebar()">☰</button>
+  <div class="crumb"><b>Quidly</b> / <span>Dashboard</span></div>
+  <div class="top-actions">
+    <button class="circle" onclick="toast('Notifications')">♢</button>
+    <button class="user-chip"><span class="mini-avatar">PU</span> Pullmids</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="head">
+    <div>
+      <div class="eyebrow">OVERVIEW</div>
+      <h1>Dashboard</h1>
+      <p class="sub">A clear view of your payment activity and merchant performance.</p>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="toast('Export started')">↓ Export</button>
+      <button class="btn primary" onclick="toast('Payment flow opened')">＋ New payment</button>
+    </div>
+  </section>
+
+  <section class="overview">
+    <div class="balance">
+      <div class="balance-top"><span class="balance-label">TRANSACTIONS VALUE</span><span class="badge">This month</span></div>
+      <div class="amount">₦0.00</div>
+      <div class="balance-foot"><span>0.00% this month</span><span>View transactions →</span></div>
+    </div>
+    <div class="metric">
+      <div class="metric-top"><span class="metric-label">TOTAL TRANSACTIONS</span><span class="metric-icon">↗</span></div>
+      <strong>0</strong>
+      <div class="change muted">No transactions yet</div>
+    </div>
+    <div class="metric">
+      <div class="metric-top"><span class="metric-label">SUCCESS RATE</span><span class="metric-icon">✓</span></div>
+      <strong>0.00%</strong>
+      <div class="change muted">Awaiting payment activity</div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="panel">
+      <div class="panel-head">
+        <div><h2>Transaction activity</h2><p>Value processed over the selected period</p></div>
+        <select class="select"><option>Last 30 days</option><option>Last 7 days</option><option>This year</option></select>
+      </div>
+      <div class="chart">
+        <svg viewBox="0 0 720 210" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="area" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#1e63f2" stop-opacity=".16"/>
+              <stop offset="100%" stop-color="#1e63f2" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <g stroke="#edf0f5" stroke-width="1">
+            <line x1="0" y1="25" x2="720" y2="25"/><line x1="0" y1="75" x2="720" y2="75"/><line x1="0" y1="125" x2="720" y2="125"/><line x1="0" y1="175" x2="720" y2="175"/>
+          </g>
+          <path d="M0,175 C55,175 65,175 110,175 S175,175 220,175 S290,175 330,175 S395,175 440,175 S505,175 550,175 S625,175 720,175 L720,205 L0,205 Z" fill="url(#area)"/>
+          <path d="M0,175 C55,175 65,175 110,175 S175,175 220,175 S290,175 330,175 S395,175 440,175 S505,175 550,175 S625,175 720,175" fill="none" stroke="#1e63f2" stroke-width="3" stroke-linecap="round"/>
+          <g class="chart-label"><text x="0" y="202">01</text><text x="115" y="202">06</text><text x="235" y="202">11</text><text x="355" y="202">16</text><text x="475" y="202">21</text><text x="595" y="202">26</text><text x="700" y="202">30</text></g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><div><h2>Quarter summary</h2><p>Payment performance snapshot</p></div></div>
+      <div class="donut-wrap">
+        <div class="donut"><div class="donut-center"><div><strong>0</strong><span>transactions</span></div></div></div>
+        <div class="legend">
+          <div class="legend-row"><span><i class="dot blue"></i>Value</span><b>₦0.00</b></div>
+          <div class="legend-row"><span><i class="dot green"></i>Count</span><b>0</b></div>
+          <div class="legend-row"><span><i class="dot gray"></i>Change</span><b>0.00%</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel table-panel">
+    <div class="panel-head">
+      <div><h2>Recent transactions</h2><p>Your latest payment activity</p></div>
+      <button class="btn" onclick="toast('Transactions opened')">View all</button>
+    </div>
+    <div class="empty">
+      <div class="empty-icon">▤</div>
+      <strong>No transactions yet</strong>
+      <span>Your recent payments will appear here once customers start paying.</span>
+    </div>
+  </section>
+
+  <section class="panel table-panel">
+    <div class="panel-head"><div><h2>Quick actions</h2><p>Common merchant tasks</p></div></div>
+    <div class="quick">
+      <button onclick="toast('Invoice Pay opened')"><i>▣</i>Invoice Pay</button>
+      <button onclick="toast('Payment link opened')"><i>↗</i>Create payment</button>
+      <button onclick="toast('KYC opened')"><i>✓</i>Complete KYC</button>
+      <button onclick="toast('Documentation opened')"><i>?</i>View documentation</button>
+    </div>
+  </section>
+
+  <div class="footer"><span>© 2026 Quidly · Teinnovate Capital</span><span>Support · Documentation</span></div>
+</div>
+</main>
+</div>
+<div id="toast" style="position:fixed;right:22px;bottom:22px;background:#101828;color:#fff;padding:11px 15px;border-radius:10px;font-size:10px;opacity:0;transform:translateY(8px);transition:.2s;z-index:100"></div>
+<script>
+
+function toggleNav(id){
+  const current=document.getElementById(id);
+  document.querySelectorAll('.nav-group').forEach(group=>{
+    if(group!==current) group.classList.remove('open');
+  });
+  current.classList.toggle('open');
+}
+
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.opacity='1';t.style.transform='translateY(0)';clearTimeout(window.tt);window.tt=setTimeout(()=>{t.style.opacity='0';t.style.transform='translateY(8px)'},1800)}
+</script>
+</body>
+</html>
