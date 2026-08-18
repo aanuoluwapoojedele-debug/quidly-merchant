@@ -105,6 +105,27 @@ h1{margin:5px 0 4px;color:var(--ink);font-size:28px;letter-spacing:-1px}
 .legend-row b{color:var(--ink)}
 .dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:7px}
 .blue{background:var(--blue)} .green{background:#78b52a} .gray{background:#dce6fb}
+/* Transaction activity */
+.chart-shell{padding:0 19px 18px}
+.chart-summary{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;padding:2px 0 4px}
+.chart-kicker{display:block;font-size:8px;letter-spacing:.9px;color:#98a2b3;font-weight:800}
+.chart-summary strong{display:block;color:var(--ink);font-size:23px;letter-spacing:-.8px;margin-top:4px}
+.chart-change{display:block;color:#0b8b62;font-size:8px;font-weight:700;margin-top:4px}
+.chart-legend{font-size:8px;color:var(--muted);display:flex;align-items:center;gap:6px;padding-bottom:3px}
+.chart-legend i{width:7px;height:7px;border-radius:50%;background:var(--blue);display:block}
+.chart{position:relative;padding:7px 0 0;height:245px}
+.chart svg{width:100%;height:100%;overflow:visible}
+.chart-grid line{stroke:#edf0f5;stroke-width:1}
+.activity-area{fill:url(#activityArea);transition:d .35s ease}
+.activity-line{fill:none;stroke:#1e63f2;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 5px 7px rgba(30,99,242,.12));transition:d .35s ease}
+.activity-point{fill:#fff;stroke:#1e63f2;stroke-width:2;opacity:0;transition:opacity .15s}
+.activity-point.active{opacity:1}
+.chart-tooltip{position:absolute;display:none;min-width:138px;padding:10px 11px;background:#101828;color:#fff;border-radius:10px;box-shadow:0 10px 25px rgba(16,24,40,.18);font-size:9px;pointer-events:none;z-index:5}
+.chart-tooltip strong{display:block;font-size:12px;margin-top:3px}
+.chart-tooltip span{color:#c7ced9;font-size:8px}
+.chart-empty{height:100%;display:grid;place-items:center;color:var(--muted);font-size:10px}
+.chart-empty strong{display:block;color:var(--ink);font-size:12px;margin-bottom:3px}
+
 .table-panel{margin-top:14px}
 .table-wrap{overflow:auto;padding:0 19px 17px}
 table{width:100%;border-collapse:collapse;min-width:650px}
@@ -124,9 +145,16 @@ td strong{color:var(--ink)}
 .footer{padding:20px 0 8px;color:#98a2b3;font-size:9px;display:flex;justify-content:space-between}
 @media(max-width:1050px){.overview{grid-template-columns:1fr 1fr}.balance{grid-column:1/-1}.grid{grid-template-columns:1fr}}
 @media(max-width:760px){
+ .chart-summary{align-items:flex-start;flex-direction:column;gap:7px}
+ .chart{height:220px}
+
  .sidebar{transform:translateX(-100%);transition:.2s}.sidebar.open{transform:none;box-shadow:20px 0 50px rgba(16,24,40,.15)}
  .main{margin-left:0}.mobile-toggle{display:block}.top{padding:0 15px}.crumb{display:none}.wrap{padding:18px}.head{flex-direction:column;align-items:flex-start}.actions{width:100%}.actions .btn{flex:1}.overview{grid-template-columns:1fr}.balance{grid-column:auto}.footer{flex-direction:column;gap:7px}
 }
+
+.merchant-page{display:none}.merchant-page .page-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:14px}.merchant-page .page-head h1{margin:4px 0;font-size:23px}.merchant-page .page-sub{margin:0;color:var(--muted);font-size:10px}.merchant-page .eyebrow{font-size:9px;letter-spacing:.12em;color:var(--green);font-weight:800}.merchant-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.merchant-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}.merchant-card h2{font-size:13px;margin:0 0 6px}.merchant-card h3{font-size:12px;margin:0 0 5px}.merchant-card p{font-size:10px;color:var(--muted);line-height:1.55}.merchant-table{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}.merchant-table-head{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}.merchant-table-head h2{font-size:13px;margin:0}.merchant-table-head p{font-size:9px;color:var(--muted);margin:4px 0 0}.merchant-table table{width:100%;border-collapse:collapse;min-width:650px}.merchant-table th,.merchant-table td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;font-size:9px}.merchant-table th{color:var(--muted);font-weight:700;background:#fbfcfe}.status{display:inline-block;padding:4px 7px;border-radius:999px;font-size:8px;font-weight:800;background:#ecfdf3;color:#18794e}.status.pending{background:#fffaeb;color:#b54708}.status.danger{background:#fef3f2;color:#b42318}.empty-state{text-align:center;padding:38px 20px;color:var(--muted)}.empty-state .empty-icon{margin:0 auto 10px;width:38px;height:38px;border-radius:10px;background:#eef6ff;color:var(--blue);display:grid;place-items:center}.empty-state strong{display:block;color:var(--ink);font-size:11px}.empty-state span{display:block;font-size:9px;margin:5px auto 13px;max-width:400px}.mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.mini-stat{background:#f8fafc;border:1px solid var(--line);padding:12px;border-radius:10px}.mini-stat b{display:block;font-size:15px;margin-top:4px}.mini-stat span{font-size:8px;color:var(--muted)}.detail-row{display:flex;justify-content:space-between;gap:15px;padding:10px 0;border-bottom:1px solid var(--line);font-size:9px}.detail-row span{color:var(--muted)}.code{background:#101828;color:#e6edf3;border-radius:10px;padding:14px;overflow:auto;font-size:9px;line-height:1.55}.notice{padding:11px;border:1px solid #fedf89;background:#fffaeb;border-radius:9px;color:#7a4d00;font-size:9px;margin-top:10px}
+@media(max-width:900px){.merchant-grid{grid-template-columns:1fr}.mini-grid{grid-template-columns:1fr 1fr}.merchant-page .page-head{flex-direction:column}.merchant-page .page-head .actions{width:100%}}
+@media(max-width:540px){.mini-grid{grid-template-columns:1fr}.merchant-table-head{align-items:flex-start;flex-direction:column}}
 </style>
 </head>
 <body>
@@ -140,30 +168,30 @@ td strong{color:var(--ink)}
 
   <div class="label">WORKSPACE</div>
   <nav class="nav">
-    <button class="active"><span class="icon">⌂</span>Dashboard</button>
+    <button class="active" onclick="go('dashboard')"><span class="icon">⌂</span>Dashboard</button>
 
     <div class="nav-group" id="paymentsGroup">
       <button class="nav-trigger" onclick="toggleNav('paymentsGroup')"><span class="icon">↗</span>Payments<span class="chev">›</span></button>
       <div class="subnav">
-        <button onclick="toast('Invoices opened')">Invoices</button>
-        <button onclick="toast('Creditlist opened')">Creditlist</button>
+        <button onclick="go('invoices')">Invoices</button>
+        <button onclick="go('creditlist')">Creditlist</button>
       </div>
     </div>
 
     <div class="nav-group" id="transactionsGroup">
       <button class="nav-trigger" onclick="toggleNav('transactionsGroup')"><span class="icon">▤</span>Transactions<span class="chev">›</span></button>
       <div class="subnav">
-        <button onclick="toast('Transactions opened')">Transactions</button>
-        <button onclick="toast('Refunds opened')">Refunds</button>
+        <button onclick="go('transactions')">Transactions</button>
+        <button onclick="go('refunds')">Refunds</button>
       </div>
     </div>
 
     <div class="nav-group" id="accountsGroup">
       <button class="nav-trigger" onclick="toggleNav('accountsGroup')"><span class="icon">◉</span>Accounts<span class="chev">›</span></button>
       <div class="subnav">
-        <button onclick="toast('Sub-accounts opened')">Sub-accounts</button>
-        <button onclick="toast('Banks opened')">Banks</button>
-        <button onclick="toast('Settlement opened')">Settlement</button>
+        <button onclick="go('subaccounts')">Sub-accounts</button>
+        <button onclick="go('banks')">Banks</button>
+        <button onclick="go('settlement')">Settlement</button>
       </div>
     </div>
   </nav>
@@ -173,12 +201,13 @@ td strong{color:var(--ink)}
     <div class="nav-group" id="settingsGroup">
       <button class="nav-trigger" onclick="toggleNav('settingsGroup')"><span class="icon">⚙</span>Settings<span class="chev">›</span></button>
       <div class="subnav">
-        <button onclick="toast('Compliance opened')">Compliance</button>
-        <button onclick="toast('API keys opened')">API-keys</button>
-        <button onclick="toast('Profile opened')">Profile</button>
+        <button onclick="go('compliance')">Compliance</button>
+        <button onclick="go('api-keys')">API-keys</button>
+        <button onclick="go('profile')">Profile</button>
+        <button onclick="go('webhook')">Webhook</button>
       </div>
     </div>
-    <button onclick="toast('Documentation navigation')"><span class="icon">▧</span>Documentation</button>
+    <button onclick="go('documentation')"><span class="icon">▧</span>Documentation</button>
   </nav>
 
   <div class="account">
@@ -237,21 +266,36 @@ td strong{color:var(--ink)}
         <div><h2>Transaction activity</h2><p>Value processed over the selected period</p></div>
         <select class="select"><option>Last 30 days</option><option>Last 7 days</option><option>This year</option></select>
       </div>
-      <div class="chart">
-        <svg viewBox="0 0 720 210" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="area" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stop-color="#1e63f2" stop-opacity=".16"/>
-              <stop offset="100%" stop-color="#1e63f2" stop-opacity="0"/>
-            </linearGradient>
-          </defs>
-          <g stroke="#edf0f5" stroke-width="1">
-            <line x1="0" y1="25" x2="720" y2="25"/><line x1="0" y1="75" x2="720" y2="75"/><line x1="0" y1="125" x2="720" y2="125"/><line x1="0" y1="175" x2="720" y2="175"/>
-          </g>
-          <path d="M0,175 C55,175 65,175 110,175 S175,175 220,175 S290,175 330,175 S395,175 440,175 S505,175 550,175 S625,175 720,175 L720,205 L0,205 Z" fill="url(#area)"/>
-          <path d="M0,175 C55,175 65,175 110,175 S175,175 220,175 S290,175 330,175 S395,175 440,175 S505,175 550,175 S625,175 720,175" fill="none" stroke="#1e63f2" stroke-width="3" stroke-linecap="round"/>
-          <g class="chart-label"><text x="0" y="202">01</text><text x="115" y="202">06</text><text x="235" y="202">11</text><text x="355" y="202">16</text><text x="475" y="202">21</text><text x="595" y="202">26</text><text x="700" y="202">30</text></g>
-        </svg>
+      <div class="chart-shell">
+        <div class="chart-summary">
+          <div>
+            <span class="chart-kicker">VALUE PROCESSED</span>
+            <strong id="chartTotal">₦2.84m</strong>
+            <span class="chart-change" id="chartChange">↑ 18.4% vs previous period</span>
+          </div>
+          <div class="chart-legend"><i></i> Transaction value</div>
+        </div>
+        <div class="chart" id="activityChart">
+          <svg id="activitySvg" viewBox="0 0 720 210" preserveAspectRatio="none" aria-label="Transaction activity chart">
+            <defs>
+              <linearGradient id="activityArea" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#1e63f2" stop-opacity=".18"/>
+                <stop offset="100%" stop-color="#1e63f2" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <g class="chart-grid">
+              <line x1="0" y1="25" x2="720" y2="25"/>
+              <line x1="0" y1="75" x2="720" y2="75"/>
+              <line x1="0" y1="125" x2="720" y2="125"/>
+              <line x1="0" y1="175" x2="720" y2="175"/>
+            </g>
+            <path id="activityArea" class="activity-area" d=""></path>
+            <path id="activityLine" class="activity-line" d=""></path>
+            <g id="activityPoints"></g>
+            <g id="activityLabels" class="chart-label"></g>
+          </svg>
+          <div class="chart-tooltip" id="chartTooltip"></div>
+        </div>
       </div>
     </div>
 
@@ -290,12 +334,135 @@ td strong{color:var(--ink)}
     </div>
   </section>
 
+  <div id="merchantPage" class="merchant-page" style="display:none"></div>
+
   <div class="footer"><span>© 2026 Quidly · Teinnovate Capital</span><span>Support · Documentation</span></div>
 </div>
 </main>
 </div>
 <div id="toast" style="position:fixed;right:22px;bottom:22px;background:#101828;color:#fff;padding:11px 15px;border-radius:10px;font-size:10px;opacity:0;transform:translateY(8px);transition:.2s;z-index:100"></div>
 <script>
+
+const activityData = {
+  "Last 7 days": [
+    {label:"12 Aug", value:92000, count:8}, {label:"13 Aug", value:118000, count:11},
+    {label:"14 Aug", value:76000, count:7}, {label:"15 Aug", value:164000, count:14},
+    {label:"16 Aug", value:142000, count:12}, {label:"17 Aug", value:196000, count:17},
+    {label:"18 Aug", value:184000, count:15}
+  ],
+  "Last 30 days": [
+    {label:"01", value:42000, count:4}, {label:"03", value:68000, count:6},
+    {label:"06", value:91000, count:8}, {label:"09", value:74000, count:7},
+    {label:"12", value:132000, count:10}, {label:"15", value:168000, count:14},
+    {label:"18", value:184000, count:15}, {label:"21", value:208000, count:18},
+    {label:"24", value:226000, count:19}, {label:"27", value:312000, count:24},
+    {label:"30", value:341000, count:27}
+  ],
+  "This year": [
+    {label:"Jan", value:186000, count:16}, {label:"Feb", value:214000, count:18},
+    {label:"Mar", value:238000, count:20}, {label:"Apr", value:272000, count:23},
+    {label:"May", value:296000, count:25}, {label:"Jun", value:318000, count:27},
+    {label:"Jul", value:362000, count:30}, {label:"Aug", value:454000, count:39}
+  ]
+};
+
+const activitySelect = document.querySelector('.select');
+const svg = document.getElementById('activitySvg');
+const linePath = document.getElementById('activityLine');
+const areaPath = document.getElementById('activityArea');
+const pointsLayer = document.getElementById('activityPoints');
+const labelsLayer = document.getElementById('activityLabels');
+const tooltip = document.getElementById('chartTooltip');
+const chartHost = document.getElementById('activityChart');
+
+function formatNaira(value){
+  if(value >= 1000000) return '₦' + (value/1000000).toFixed(2) + 'm';
+  if(value >= 1000) return '₦' + Math.round(value/1000) + 'k';
+  return '₦' + Math.round(value);
+}
+
+function renderActivityChart(period){
+  const data = activityData[period];
+  const width = 720, top = 25, bottom = 175;
+  const max = Math.max(...data.map(d => d.value)) * 1.16;
+  const xStep = width / Math.max(data.length - 1, 1);
+  const points = data.map((d,i) => {
+    const x = i * xStep;
+    const y = bottom - ((d.value / max) * (bottom-top));
+    return {...d,x,y};
+  });
+
+  const line = points.map((p,i) => (i ? `L${p.x.toFixed(1)},${p.y.toFixed(1)}` : `M${p.x.toFixed(1)},${p.y.toFixed(1)}`)).join(' ');
+  const area = line + ` L${width},${bottom} L0,${bottom} Z`;
+  linePath.setAttribute('d', line);
+  areaPath.setAttribute('d', area);
+
+  pointsLayer.innerHTML = points.map((p,i) =>
+    `<circle class="activity-point" data-index="${i}" cx="${p.x}" cy="${p.y}" r="4"></circle>`
+  ).join('');
+
+  const labelIndexes = data.length <= 8 ? data.map((_,i)=>i) : [0,2,4,6,8,10];
+  labelsLayer.innerHTML = labelIndexes.filter(i=>data[i]).map(i =>
+    `<text x="${points[i].x}" y="202" text-anchor="${i===0?'start':i===data.length-1?'end':'middle'}">${data[i].label}</text>`
+  ).join('');
+
+  const total = data.reduce((sum,d)=>sum+d.value,0);
+  document.getElementById('chartTotal').textContent = formatNaira(total);
+  document.getElementById('chartChange').textContent = period === 'Last 7 days'
+    ? '↑ 12.8% vs previous period'
+    : period === 'This year'
+      ? '↑ 18.4% vs previous period'
+      : '↑ 18.4% vs previous period';
+
+  pointsLayer.querySelectorAll('.activity-point').forEach((circle,i)=>{
+    circle.addEventListener('mouseenter',()=>{
+      circle.classList.add('active');
+      const p = points[i];
+      tooltip.innerHTML = `<span>${p.label} · ${p.count} transactions</span><strong>${formatNaira(p.value)}</strong>`;
+      tooltip.style.display='block';
+      const rect = chartHost.getBoundingClientRect();
+      const x = (p.x / width) * chartHost.clientWidth;
+      const y = (p.y / 210) * chartHost.clientHeight;
+      tooltip.style.left = Math.min(Math.max(x - 55, 5), chartHost.clientWidth - 145) + 'px';
+      tooltip.style.top = Math.max(y - 68, 5) + 'px';
+    });
+    circle.addEventListener('mouseleave',()=>{
+      circle.classList.remove('active');
+      tooltip.style.display='none';
+    });
+  });
+}
+
+if(activitySelect){
+  activitySelect.addEventListener('change', e => renderActivityChart(e.target.value));
+  renderActivityChart(activitySelect.value);
+}
+
+const merchantPage=document.getElementById('merchantPage');
+const dashboardWrap=document.querySelector('.wrap');
+const dashboardSections=[...dashboardWrap.children].filter(el=>el.id!=='merchantPage' && !el.classList.contains('footer'));
+function pageButton(label, action, cls='btn primary'){return `<button class="${cls}" onclick="toast('${action} opened')">${label}</button>`}
+function tablePage(title,sub,heads,rows=[],action=''){return `<div class="page-head"><div><div class="eyebrow">MERCHANT WORKSPACE</div><h1>${title}</h1><p class="page-sub">${sub}</p></div><div class="actions"><button class="btn" onclick="toast('Search opened')">⌕ Search</button>${action?pageButton(action,action):''}</div></div><div class="merchant-table"><div class="merchant-table-head"><div><h2>${title}</h2><p>${sub}</p></div><button class="btn" onclick="toast('Export started')">↓ Export</button></div><div style="overflow:auto"><table><thead><tr>${heads.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.length?rows.map(r=>`<tr>${r.map((v,i)=>`<td>${i===r.length-1?`<span class="status ${/Pending|Processing/.test(v)?'pending':/Failed|Incomplete/.test(v)?'danger':''}">${v}</span>`:v}</td>`).join('')}</tr>`).join(''):`<tr><td colspan="${heads.length}"><div class="empty-state"><div class="empty-icon">▤</div><strong>No data yet</strong><span>This demo keeps the merchant workflow from the previous Quidly version while following this new dashboard's layout.</span>${action?pageButton(action,action):''}</div></td></tr>`}</tbody></table></div></div>`}
+function settingsPage(title,sub,items){return `<div class="page-head"><div><div class="eyebrow">SETTINGS</div><h1>${title}</h1><p class="page-sub">${sub}</p></div><div class="actions"><button class="btn primary" onclick="toast('Changes saved in demo mode')">Save changes</button></div></div><div class="merchant-grid">${items.map((x,i)=>`<div class="merchant-card"><h3>${x}</h3><p>${title==='Compliance'?'Verification status and required documents are shown here.':title==='Webhook'&&x==='Signing Secret'?'Generate and rotate the secret used to verify delivery signatures.':'Configure and monitor this part of your Quidly merchant workspace.'}</p><button class="btn" onclick="toast('${x} opened')">Open ${x} →</button></div>`).join('')}</div>`}
+function contentFor(id){
+const pages={
+'invoices':tablePage('Invoices','Create, send and monitor payment invoices.',['Invoice ID','Customer','Amount','Due date','Status'],[['INV-1001','Acme Ltd','₦250,000','28 Aug','Pending'],['INV-1000','Nova Foods','₦120,000','20 Aug','Paid']],'＋ New invoice'),
+'creditlist':tablePage('Creditlist','Manage customers and credit/payment records.',['Customer','Reference','Amount','Date','Status'],[['Acme Ltd','CR-204','₦200,000','18 Aug','Approved'],['Ola Stores','CR-203','₦85,000','17 Aug','Pending']],'＋ Add credit'),
+'transactions':tablePage('Transactions','Payment activity across your Quidly merchant account.',['Transaction ID','Amount','Customer','Date','Status'],[['TX-20481','₦180,000','Acme Ltd','18 Aug','Successful'],['TX-20480','₦75,500','Ola Stores','18 Aug','Pending']]),
+'refunds':tablePage('Refunds','Review and manage customer refunds.',['Refund ID','Payment ID','Amount','Reason','Date','Status'],[['RF-091','TX-20412','₦40,000','Customer request','17 Aug','Completed']],'＋ Refund'),
+'subaccounts':tablePage('Sub-accounts','Create and monitor connected sub-accounts.',['Sub-account','Reference','Settled','Awaiting','Status'],[['Acme Ltd','SUB-01','₦420,000','₦40,000','Active'],['Ola Stores','SUB-02','₦260,000','₦80,000','Active']],'＋ Add subaccount'),
+'banks':`<div class="page-head"><div><div class="eyebrow">ACCOUNTS</div><h1>Bank Accounts</h1><p class="page-sub">Manage the bank accounts used for merchant settlements.</p></div><div class="actions"><button class="btn primary" onclick="toast('New bank account opened')">＋ New bank account</button></div></div><div class="merchant-card"><h2>Settlement bank</h2><div class="detail-row"><b>Bank</b><span>Demo Bank</span></div><div class="detail-row"><b>Account</b><span>•••• 2041</span></div><div class="detail-row"><b>Account name</b><span>Pullmids</span></div><div class="detail-row"><b>Status</b><span class="status">Active</span></div></div>`,
+'settlement':tablePage('Settlements','Track amounts moving from Quidly to your bank account.',['Settlement ID','Amount','Date','Bank name','Account number','Status'],[['ST-4432','₦420,000','18 Aug','Demo Bank','•••• 2041','Processing']]),
+'compliance':settingsPage('Compliance','Monitor company and business-owner verification.',['Company Registration','Business Owner','BVN','Photo ID','Proof of Address']),
+'api-keys':settingsPage('API Keys','Create and manage public API keys and usage.',['API Public Keys','Usage Statistics','Transaction Count','Transaction Value']),
+'profile':`<div class="page-head"><div><div class="eyebrow">SETTINGS</div><h1>Profile</h1><p class="page-sub">Manage your merchant profile, linked merchants and users.</p></div><div class="actions"><button class="btn primary" onclick="toast('Profile changes saved')">Save changes</button></div></div><div class="merchant-grid"><div class="merchant-card"><div class="avatar" style="margin-bottom:10px">PU</div><h2>Pullmids</h2><p>Admin · Merchant account</p><div class="detail-row"><b>KYC status</b><span class="status pending">Pending</span></div><div class="detail-row"><b>Merchant ID</b><span>merchant-demo-0ad54371</span></div><div class="detail-row"><b>Email</b><span>merchant@example.com</span></div></div><div class="merchant-card"><h2>Linked Merchants</h2><p>Manage connected merchant workspaces.</p><div class="detail-row"><b>Pullmids</b><span class="status pending">KYC Pending</span></div><button class="btn" onclick="toast('Manage users opened')">Manage Users</button></div></div>`,
+'webhook':`<div class="page-head"><div><div class="eyebrow">SETTINGS</div><h1>Webhook</h1><p class="page-sub">Receive signed server notifications when payments succeed, fail, expire or reverse.</p></div><div class="actions"><button class="btn primary" onclick="toast('Webhook settings saved')">Save changes</button></div></div><div class="merchant-grid"><div class="merchant-card"><h2>Webhook URL</h2><p>Endpoint Quidly should notify when merchant events occur.</p><input class="input" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px" placeholder="https://your-server.example.com/webhooks/quidly"><div style="margin-top:10px"><button class="btn" onclick="toast('Webhook URL saved')">Save URL</button></div></div><div class="merchant-card"><h2>Signing Secret</h2><p>Used to verify delivery signatures.</p><div class="notice">No secret generated in this demo. Generate one and store it securely.</div><div style="margin-top:10px"><button class="btn primary" onclick="toast('Signing secret generated')">Generate secret</button></div></div></div><div class="merchant-card" style="margin-top:14px"><h2>Delivery verification</h2><p>Verify the X-Quidly-Signature header using HMAC-SHA512 and your signing secret.</p><pre class="code">const expected = crypto.createHmac('sha512', process.env.QUIDLY_WEBHOOK_SECRET)\n  .update(req.rawBody).digest('hex');</pre></div>`,
+'documentation':`<div class="page-head"><div><div class="eyebrow">QUidly</div><h1>Documentation</h1><p class="page-sub">Developer and merchant guidance for integrating and operating Quidly.</p></div></div><div class="merchant-grid">${['Payments','Transactions','Webhooks','API Keys','Account setup'].map(x=>`<div class="merchant-card"><h2>${x}</h2><p>Reference material and implementation guidance for ${x.toLowerCase()}.</p><button class="btn" onclick="toast('${x} documentation opened')">Open guide →</button></div>`).join('')}</div>`
+};return pages[id]||''}
+function setNavActive(id){document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.nav-group').forEach(g=>g.classList.remove('open'));if(id==='dashboard'){document.querySelector('.nav button[onclick="go(\'dashboard\')"]').classList.add('active');return}const b=[...document.querySelectorAll('.subnav button')].find(x=>x.getAttribute('onclick')===`go('${id}')`);if(b){b.classList.add('active');b.closest('.nav-group').classList.add('open')}}
+function go(id){
+ if(id==='dashboard'){merchantPage.style.display='none';dashboardSections.forEach(x=>x.style.display='');document.querySelector('.head h1').textContent='Dashboard';document.querySelector('.crumb span').textContent='Dashboard';setNavActive('dashboard');window.scrollTo({top:0,behavior:'smooth'});return}
+ dashboardSections.forEach(x=>x.style.display='none');merchantPage.style.display='block';merchantPage.innerHTML=contentFor(id);setNavActive(id);const names={'api-keys':'API Keys','subaccounts':'Sub-accounts','creditlist':'Creditlist','invoices':'Invoices','transactions':'Transactions','refunds':'Refunds','banks':'Bank Accounts','settlement':'Settlements','compliance':'Compliance','profile':'Profile','webhook':'Webhook','documentation':'Documentation'};document.querySelector('.crumb span').textContent=names[id]||id;window.scrollTo({top:0,behavior:'smooth'});if(window.innerWidth<=780)toggleSidebar()}
 
 function toggleNav(id){
   const current=document.getElementById(id);
