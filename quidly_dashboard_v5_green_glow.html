@@ -121,7 +121,32 @@ select:focus-visible{
   display:flex;
   flex-direction:column;
 }
+.brand{
+  padding:4px 12px 24px;
+  display:flex;
+  align-items:center;
+  position:relative;
+}
 
+.brand:after{
+  content:'';
+  width:28px;
+  height:3px;
+  border-radius:99px;
+  background:var(--green);
+  position:absolute;
+  left:12px;
+  bottom:15px;
+}
+
+.quidly-logo{
+  width:108px;
+  height:auto;
+  max-height:36px;
+  object-fit:contain;
+  object-position:left center;
+  display:block;
+}
 .brand{
   padding:4px 12px 24px;
 
@@ -357,7 +382,7 @@ select:focus-visible{
 
   color:#667085;
 
-  font-weight:600;
+  font-weight:500;
 
   font-size:12px;
 
@@ -486,10 +511,6 @@ select:focus-visible{
    ACCOUNT AREA
 ========================================================= */
 
-.account{
-  margin-top:auto;
-}
-
 
 /* =========================================================
    MAIN AREA
@@ -554,7 +575,50 @@ select:focus-visible{
 
   color:#667085;
 }
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
 
+.notification-btn{
+  width:38px;
+  height:38px;
+  border:1px solid var(--line);
+  border-radius:50%;
+  background:#fff;
+  color:var(--ink);
+  display:grid;
+  place-items:center;
+  position:relative;
+  padding:0;
+  transition:.18s ease;
+}
+
+.notification-btn:hover{
+  background:#f8fafc;
+  border-color:#d9dee8;
+  transform:translateY(-1px);
+}
+
+.notification-btn svg{
+  width:18px;
+  height:18px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.notification-dot{
+  position:absolute;
+  top:7px;
+  right:7px;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--blue);
+  border:2px solid #fff;
+}
 .user-chip{
   height:36px;
 
@@ -647,21 +711,18 @@ select:focus-visible{
 }
 
 h1{
-  margin:5px 0 4px;
-
+  margin:5px 0 5px;
   color:var(--ink);
-
-  font-size:28px;
-
-  letter-spacing:-1px;
+  font-size:30px;
+  line-height:1.15;
+  font-weight:700;
+  letter-spacing:-.8px;
 }
-
 .sub{
   margin:0;
-
   color:var(--muted);
-
-  font-size:11px;
+  font-size:12px;
+  line-height:1.5;
 }
 
 .actions{
@@ -685,9 +746,9 @@ h1{
 
   padding:10px 14px;
 
-  font-size:10px;
+  font-size:11px;
 
-  font-weight:700;
+  font-weight:600;
 
   transition:
     .18s ease;
@@ -906,7 +967,12 @@ h1{
 
   color:var(--ink);
 
-  font-size:25px;
+ .amount{
+  font-size:34px;
+  line-height:1.1;
+  font-weight:700;
+  letter-spacing:-1px;
+}
 
   letter-spacing:-.7px;
 
@@ -2469,7 +2535,13 @@ textarea.input{
 <body>
 <div class="app">
 <aside class="sidebar" id="sidebar">
-  <div class="brand"><div class="logo"><span class="q">qui</span><span class="id">dly</span></div></div>
+<div class="brand">
+  <img
+    src="assets/quidly-logo.svg"
+    alt="Quidly"
+    class="quidly-logo"
+  >
+</div>
   <div class="profile" id="merchantProfile">
   <div class="avatar">PU</div>
 
@@ -2541,14 +2613,6 @@ textarea.input{
     </div>
     <button onclick="go('documentation')"><span class="icon">▧</span>Documentation</button>
   </nav>
-
-  <div class="account">
-    <div class="label">ACCOUNT</div>
-    <div class="profile" style="margin-bottom:0">
-      <div class="avatar">PU</div>
-      <div><strong>Pullmids</strong><small>Account settings</small></div>
-    </div>
-  </div>
 </aside>
 
 <main class="main">
@@ -2556,7 +2620,25 @@ textarea.input{
   <button class="circle mobile-toggle" onclick="toggleSidebar()">☰</button>
   <div class="crumb"><b>Quidly</b> / <span>Dashboard</span></div>
   <div class="top-actions">
-    <button class="circle" onclick="toast('Notifications')">♢</button>
+    <button
+  class="notification-btn"
+  id="notificationBtn"
+  type="button"
+  aria-label="Notifications"
+  onclick="toggleNotifications(event)"
+>
+  <svg
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
+    <path
+      d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"
+    />
+    <path d="M10 21h4" />
+  </svg>
+
+  <span class="notification-dot"></span>
+</button>
     <button class="user-chip"><span class="mini-avatar">PU</span> Pullmids</button>
   </div>
 </header>
@@ -3049,7 +3131,61 @@ if (dashboardWrap) {
 /* =========================================================
    TOAST
 ========================================================= */
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
 
+function toggleNotifications(event) {
+
+  if (event) {
+    event.stopPropagation();
+  }
+
+  toast("Notifications opened");
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function toast(message) {
+
+  const toastElement =
+    document.getElementById("toast");
+
+  if (!toastElement) {
+
+    console.log(message);
+
+    return;
+
+  }
+
+  toastElement.textContent =
+    message;
+
+  toastElement.style.opacity =
+    "1";
+
+  toastElement.style.transform =
+    "translateY(0)";
+
+  clearTimeout(window.tt);
+
+  window.tt =
+    setTimeout(() => {
+
+      toastElement.style.opacity =
+        "0";
+
+      toastElement.style.transform =
+        "translateY(8px)";
+
+    }, 1800);
+
+}
 function toast(message) {
 
   const toastElement =
