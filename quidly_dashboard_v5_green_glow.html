@@ -8,230 +8,2461 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+/* =========================================================
+   QUIDLY DASHBOARD — MASTER CSS
+========================================================= */
+
 :root{
   --blue:#1e63f2;
   --blue-dark:#1557dc;
   --green:#6caf08;
+  --green-dark:#5f9d07;
+
   --ink:#101828;
   --text:#344054;
   --muted:#667085;
   --light:#98a2b3;
+
   --line:#e7eaf0;
   --bg:#f7f9fc;
   --card:#fff;
+
   --soft:#eef4ff;
   --soft-green:#eef8e5;
+
   --danger:#ef476f;
+
   --shadow:0 8px 28px rgba(16,24,40,.06);
-  --gradient:linear-gradient(135deg,#1e63f2 0%,#2f7cf0 48%,#6caf08 100%);
-}
-*{box-sizing:border-box}
-body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
-button{font:inherit;cursor:pointer}
-.app{min-height:100vh}
-.sidebar{position:fixed;left:0;top:0;bottom:0;width:248px;background:#fff;border-right:1px solid var(--line);padding:22px 15px;z-index:20;display:flex;flex-direction:column}
-.brand{padding:4px 12px 24px;display:flex;align-items:center;position:relative}.brand:after{content:'';width:28px;height:3px;border-radius:99px;background:var(--green);position:absolute;left:12px;bottom:15px}
-.logo{font-size:27px;line-height:1;font-weight:800;letter-spacing:-1.8px}
-.logo .q{color:var(--green)} .logo .id{color:var(--blue)}
-.profile{border:1px solid var(--line);border-radius:14px;padding:12px;margin:0 4px 20px;display:flex;align-items:center;gap:10px}
-.avatar{width:38px;height:38px;border-radius:11px;background:#eaf0ff;color:var(--blue);display:grid;place-items:center;font-size:11px;font-weight:800;flex:none}
-.profile strong{display:block;color:var(--ink);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:145px}
-.profile small{display:block;color:var(--muted);font-size:9px;margin-top:3px}
-.label{font-size:9px;color:var(--light);font-weight:800;letter-spacing:1.2px;padding:8px 11px}
-.nav{display:grid;gap:4px}
-.nav button{border:0;background:transparent;text-align:left;width:100%;padding:11px 12px;border-radius:10px;color:#667085;font-weight:600;font-size:12px;display:flex;align-items:center;gap:11px;transition:.18s}
-.nav button:hover{background:#f5f7fb;color:var(--ink)}
-.nav button.active{background:rgba(108,175,8,.10);color:#5f9d07;box-shadow:inset 3px 0 var(--green),0 0 18px rgba(108,175,8,.10)}
-.nav button .icon{width:18px;text-align:center;font-size:14px;opacity:.9}
-.nav button .chev{margin-left:auto;color:#98a2b3;font-size:10px}
-.subnav{display:grid;gap:2px;margin:0 0 5px 30px;padding-left:10px;border-left:1px solid #e7eaf0;overflow:hidden;max-height:0;opacity:0;transition:max-height .22s ease,opacity .18s ease}
-.nav-group.open .subnav{max-height:180px;opacity:1}
-.subnav button{border:0;background:transparent;text-align:left;width:100%;padding:8px 9px;border-radius:8px;color:#7a8596;font-size:10px;font-weight:600}
-.subnav button:hover{background:#f5f7fb;color:var(--ink)}
-.nav-group>.nav-trigger .chev{transition:transform .2s ease}
-.nav-group.open>.nav-trigger .chev{transform:rotate(90deg);color:var(--blue)}
 
-.account{margin-top:auto}
-.main{margin-left:248px;min-height:100vh}
-.top{height:68px;background:rgba(255,255,255,.94);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px;position:sticky;top:0;z-index:10;backdrop-filter:blur(14px)}
-.crumb{font-size:11px;color:var(--muted)} .crumb b{color:var(--ink)}
-.top-actions{display:flex;align-items:center;gap:8px}
-.circle{width:36px;height:36px;border:1px solid var(--line);border-radius:50%;background:#fff;color:#667085}
-.user-chip{height:36px;border:1px solid var(--line);border-radius:20px;background:#fff;padding:0 10px 0 5px;display:flex;align-items:center;gap:7px;font-size:10px;font-weight:700;color:var(--ink)}
-.user-chip .mini-avatar{width:26px;height:26px;border-radius:50%;background:#eaf0ff;color:var(--blue);display:grid;place-items:center;font-size:9px}
-.mobile-toggle{display:none}
-.wrap{max-width:1440px;margin:auto;padding:30px}
-.head{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;margin-bottom:22px}
-.eyebrow{font-size:9px;letter-spacing:1.25px;color:#7a8596;font-weight:800}
-h1{margin:5px 0 4px;color:var(--ink);font-size:28px;letter-spacing:-1px}
-.sub{margin:0;color:var(--muted);font-size:11px}
-.actions{display:flex;gap:8px}
-.btn{border:1px solid var(--line);background:#fff;color:#475467;border-radius:10px;padding:10px 14px;font-size:10px;font-weight:700}
-.btn.primary{border:0;color:#fff;background:var(--green);box-shadow:0 9px 22px rgba(108,175,8,.20)}
-.btn.primary:hover{background:#5f9d07;transform:translateY(-1px);box-shadow:0 10px 24px rgba(108,175,8,.24)}
-.overview{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:14px;margin-bottom:14px}
-.balance{background:linear-gradient(145deg,#6caf08 0%,#78bd18 58%,#5f9d07 100%);color:#fff;border-radius:18px;padding:22px;min-height:175px;position:relative;overflow:hidden;box-shadow:0 15px 38px rgba(108,175,8,.28),0 0 30px rgba(108,175,8,.12)}
-.balance:after{content:"";position:absolute;width:280px;height:280px;border-radius:50%;right:-125px;top:-165px;background:rgba(255,255,255,.16)}
-.balance>*{position:relative;z-index:1}
-.balance-top{display:flex;justify-content:space-between;align-items:center}
-.balance-label{font-size:9px;font-weight:800;letter-spacing:.9px;color:rgba(255,255,255,.76)}
-.badge{font-size:8px;font-weight:800;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2)}
-.amount{font-size:31px;font-weight:800;letter-spacing:-1.3px;margin-top:22px}
-.balance-foot{display:flex;justify-content:space-between;margin-top:24px;font-size:9px;color:rgba(255,255,255,.78)}
-.metric{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow);min-height:175px}
-.metric-top{display:flex;justify-content:space-between;align-items:center}
-.metric-label{font-size:9px;font-weight:800;letter-spacing:.7px;color:var(--muted)}
-.metric-icon{width:34px;height:34px;border-radius:10px;background:var(--soft);color:var(--blue);display:grid;place-items:center;font-size:14px}
-.metric strong{display:block;color:var(--ink);font-size:25px;letter-spacing:-.7px;margin-top:23px}
-.metric .change{font-size:9px;font-weight:700;color:#0b8b62;margin-top:5px}
-.metric .muted{color:var(--muted);font-weight:500}
-.grid{display:grid;grid-template-columns:1.55fr .85fr;gap:14px}
-.panel{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
-.panel-head{display:flex;align-items:center;justify-content:space-between;padding:18px 19px 12px}
-.panel-head h2{font-size:13px;color:var(--ink);margin:0}
-.panel-head p{font-size:9px;color:var(--muted);margin:4px 0 0}
-.select{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 10px;font-size:9px;color:#475467}
-.chart{padding:8px 19px 18px;height:245px}
-.chart svg{width:100%;height:100%}
-.chart-label{font-size:9px;fill:#98a2b3}
-.donut-wrap{padding:7px 20px 20px;display:flex;align-items:center;gap:18px}
-.donut{width:128px;height:128px;border-radius:50%;background:conic-gradient(var(--blue) 0 62%,#78b52a 62% 81%,#dce6fb 81% 100%);position:relative;flex:none}
-.donut:after{content:"";position:absolute;inset:25px;background:#fff;border-radius:50%}
-.donut-center{position:absolute;inset:0;display:grid;place-items:center;z-index:1;text-align:center}
-.donut-center strong{font-size:18px;color:var(--ink);display:block}
-.donut-center span{font-size:8px;color:var(--muted)}
-.legend{display:grid;gap:12px;width:100%}
-.legend-row{display:flex;align-items:center;justify-content:space-between;font-size:9px;color:var(--muted)}
-.legend-row b{color:var(--ink)}
-.dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:7px}
-.blue{background:var(--blue)} .green{background:#78b52a} .gray{background:#dce6fb}
-/* Transaction activity */
-.chart-shell{padding:0 19px 18px}
-.chart-summary{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;padding:2px 0 4px}
-.chart-kicker{display:block;font-size:8px;letter-spacing:.9px;color:#98a2b3;font-weight:800}
-.chart-summary strong{display:block;color:var(--ink);font-size:23px;letter-spacing:-.8px;margin-top:4px}
-.chart-change{display:block;color:#0b8b62;font-size:8px;font-weight:700;margin-top:4px}
-.chart-legend{font-size:8px;color:var(--muted);display:flex;align-items:center;gap:6px;padding-bottom:3px}
-.chart-legend i{width:7px;height:7px;border-radius:50%;background:var(--blue);display:block}
-.chart{position:relative;padding:7px 0 0;height:245px}
-.chart svg{width:100%;height:100%;overflow:visible}
-.chart-grid line{stroke:#edf0f5;stroke-width:1}
-.activity-area{fill:url(#activityArea);transition:d .35s ease}
-.activity-line{fill:none;stroke:#1e63f2;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 5px 7px rgba(30,99,242,.12));transition:d .35s ease}
-.activity-point{fill:#fff;stroke:#1e63f2;stroke-width:2;opacity:0;transition:opacity .15s}
-.activity-point.active{opacity:1}
-.chart-tooltip{position:absolute;display:none;min-width:138px;padding:10px 11px;background:#101828;color:#fff;border-radius:10px;box-shadow:0 10px 25px rgba(16,24,40,.18);font-size:9px;pointer-events:none;z-index:5}
-.chart-tooltip strong{display:block;font-size:12px;margin-top:3px}
-.chart-tooltip span{color:#c7ced9;font-size:8px}
-.chart-empty{height:100%;display:grid;place-items:center;color:var(--muted);font-size:10px}
-.chart-empty strong{display:block;color:var(--ink);font-size:12px;margin-bottom:3px}
-
-.table-panel{margin-top:14px}
-.table-wrap{overflow:auto;padding:0 19px 17px}
-table{width:100%;border-collapse:collapse;min-width:650px}
-th,td{text-align:left;border-bottom:1px solid #edf0f5;padding:12px 8px;font-size:9px}
-th{text-transform:uppercase;color:#98a2b3;font-size:8px;font-weight:800}
-td strong{color:var(--ink)}
-.status{display:inline-block;padding:5px 8px;border-radius:99px;font-size:7px;font-weight:800}
-.success{background:#e8f8f1;color:#0b8b62}.pending{background:#fff5df;color:#a56a00}.failed{background:#fff0ef;color:#d64545}
-.empty{padding:35px 20px;text-align:center;color:var(--muted)}
-.empty-icon{width:46px;height:46px;border-radius:14px;background:var(--soft);color:var(--blue);display:grid;place-items:center;margin:0 auto 11px;font-size:18px}
-.empty strong{display:block;color:var(--ink);font-size:12px;margin-bottom:4px}
-.empty span{font-size:9px}
-.quick{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:5px 19px 19px}
-.quick button{border:1px solid var(--line);background:#fff;border-radius:11px;padding:12px 10px;text-align:left;font-size:9px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:9px}
-.quick button:hover{background:#f8faff;border-color:#dbe5ff}
-.quick i{width:30px;height:30px;border-radius:9px;background:var(--soft-green);color:var(--green);display:grid;place-items:center;font-style:normal}
-.footer{padding:20px 0 8px;color:#98a2b3;font-size:9px;display:flex;justify-content:space-between}
-@media(max-width:1050px){.overview{grid-template-columns:1fr 1fr}.balance{grid-column:1/-1}.grid{grid-template-columns:1fr}}
-@media(max-width:760px){
- .chart-summary{align-items:flex-start;flex-direction:column;gap:7px}
- .chart{height:220px}
-
- .sidebar{transform:translateX(-100%);transition:.2s}.sidebar.open{transform:none;box-shadow:20px 0 50px rgba(16,24,40,.15)}
- .main{margin-left:0}.mobile-toggle{display:block}.top{padding:0 15px}.crumb{display:none}.wrap{padding:18px}.head{flex-direction:column;align-items:flex-start}.actions{width:100%}.actions .btn{flex:1}.overview{grid-template-columns:1fr}.balance{grid-column:auto}.footer{flex-direction:column;gap:7px}
+  --gradient:
+    linear-gradient(
+      135deg,
+      #1e63f2 0%,
+      #2f7cf0 48%,
+      #6caf08 100%
+    );
 }
 
-.merchant-page{display:none}.merchant-page .page-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:14px}.merchant-page .page-head h1{margin:4px 0;font-size:23px}.merchant-page .page-sub{margin:0;color:var(--muted);font-size:10px}.merchant-page .eyebrow{font-size:9px;letter-spacing:.12em;color:var(--green);font-weight:800}.merchant-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.merchant-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}.merchant-card h2{font-size:13px;margin:0 0 6px}.merchant-card h3{font-size:12px;margin:0 0 5px}.merchant-card p{font-size:10px;color:var(--muted);line-height:1.55}.merchant-table{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}.merchant-table-head{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}.merchant-table-head h2{font-size:13px;margin:0}.merchant-table-head p{font-size:9px;color:var(--muted);margin:4px 0 0}.merchant-table table{width:100%;border-collapse:collapse;min-width:650px}.merchant-table th,.merchant-table td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;font-size:9px}.merchant-table th{color:var(--muted);font-weight:700;background:#fbfcfe}.status{display:inline-block;padding:4px 7px;border-radius:999px;font-size:8px;font-weight:800;background:#ecfdf3;color:#18794e}.status.pending{background:#fffaeb;color:#b54708}.status.danger{background:#fef3f2;color:#b42318}.empty-state{text-align:center;padding:38px 20px;color:var(--muted)}.empty-state .empty-icon{margin:0 auto 10px;width:38px;height:38px;border-radius:10px;background:#eef6ff;color:var(--blue);display:grid;place-items:center}.empty-state strong{display:block;color:var(--ink);font-size:11px}.empty-state span{display:block;font-size:9px;margin:5px auto 13px;max-width:400px}.mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.mini-stat{background:#f8fafc;border:1px solid var(--line);padding:12px;border-radius:10px}.mini-stat b{display:block;font-size:15px;margin-top:4px}.mini-stat span{font-size:8px;color:var(--muted)}.detail-row{display:flex;justify-content:space-between;gap:15px;padding:10px 0;border-bottom:1px solid var(--line);font-size:9px}.detail-row span{color:var(--muted)}.code{background:#101828;color:#e6edf3;border-radius:10px;padding:14px;overflow:auto;font-size:9px;line-height:1.55}.notice{padding:11px;border:1px solid #fedf89;background:#fffaeb;border-radius:9px;color:#7a4d00;font-size:9px;margin-top:10px}
-@media(max-width:900px){.merchant-grid{grid-template-columns:1fr}.mini-grid{grid-template-columns:1fr 1fr}.merchant-page .page-head{flex-direction:column}.merchant-page .page-head .actions{width:100%}}
-@media(max-width:540px){.mini-grid{grid-template-columns:1fr}.merchant-table-head{align-items:flex-start;flex-direction:column}}
-.profile {
-  position: relative;
-  cursor: pointer;
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+  box-sizing:border-box;
 }
 
-.profile-menu-btn {
-  margin-left: auto;
-  border: 0;
-  background: transparent;
-  color: #98a2b3;
-  font-size: 18px;
-  cursor: pointer;
-  padding: 4px 6px;
-  border-radius: 7px;
+html{
+  scroll-behavior:smooth;
 }
 
-.profile-menu-btn:hover {
-  background: #f5f7fb;
-  color: var(--ink);
+body{
+  margin:0;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  background:var(--bg);
+  color:var(--text);
 }
 
-.profile-menu {
-  position: absolute;
-  left: calc(100% + 10px);
-  bottom: 0;
-  width: 190px;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 7px;
-  box-shadow: 0 14px 35px rgba(16,24,40,.14);
-  display: none;
-  z-index: 100;
+button,
+input,
+textarea,
+select{
+  font:inherit;
 }
 
-.profile-menu.open {
-  display: grid;
-  gap: 3px;
+button{
+  cursor:pointer;
 }
 
-.profile-menu button {
-  border: 0;
-  background: transparent;
-  text-align: left;
-  padding: 9px 10px;
-  border-radius: 8px;
-  color: #667085;
-  font-size: 11px;
-  font-weight: 600;
-  cursor: pointer;
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible{
+  outline:3px solid rgba(30,99,242,.12);
+  outline-offset:1px;
 }
 
-.profile-menu button:hover {
-  background: #f5f7fb;
-  color: var(--ink);
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app{
+  min-height:100vh;
 }
 
-.profile-menu .logout-item {
-  color: #d92d20;
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar{
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:248px;
+
+  background:#fff;
+  border-right:1px solid var(--line);
+
+  padding:22px 15px;
+
+  z-index:20;
+
+  display:flex;
+  flex-direction:column;
 }
 
-.profile-menu .logout-item:hover {
-  background: #fff1f0;
-  color: #b42318;
+.brand{
+  padding:4px 12px 24px;
+
+  display:flex;
+  align-items:center;
+
+  position:relative;
 }
 
-.profile-divider {
-  height: 1px;
-  background: var(--line);
-  margin: 4px 2px;
+.brand:after{
+  content:"";
+
+  width:28px;
+  height:3px;
+
+  border-radius:99px;
+
+  background:var(--green);
+
+  position:absolute;
+  left:12px;
+  bottom:15px;
 }
 
-@media(max-width:760px) {
-  .profile-menu {
-    left: 0;
-    bottom: calc(100% + 8px);
+.logo{
+  font-size:27px;
+  line-height:1;
+
+  font-weight:800;
+
+  letter-spacing:-1.8px;
+}
+
+.logo .q{
+  color:var(--green);
+}
+
+.logo .id{
+  color:var(--blue);
+}
+
+
+/* =========================================================
+   SIDEBAR PROFILE
+========================================================= */
+
+.profile{
+  position:relative;
+
+  border:1px solid var(--line);
+  border-radius:14px;
+
+  padding:12px;
+  margin:0 4px 20px;
+
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  cursor:pointer;
+}
+
+.profile strong{
+  display:block;
+
+  color:var(--ink);
+
+  font-size:11px;
+
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+
+  max-width:145px;
+}
+
+.profile small{
+  display:block;
+
+  color:var(--muted);
+
+  font-size:9px;
+
+  margin-top:3px;
+}
+
+.avatar{
+  width:38px;
+  height:38px;
+
+  border-radius:11px;
+
+  background:#eaf0ff;
+  color:var(--blue);
+
+  display:grid;
+  place-items:center;
+
+  font-size:11px;
+  font-weight:800;
+
+  flex:none;
+}
+
+.profile-menu-btn{
+  margin-left:auto;
+
+  border:0;
+  background:transparent;
+
+  color:#98a2b3;
+
+  font-size:18px;
+
+  cursor:pointer;
+
+  padding:4px 6px;
+
+  border-radius:7px;
+}
+
+.profile-menu-btn:hover{
+  background:#f5f7fb;
+  color:var(--ink);
+}
+
+
+/* =========================================================
+   PROFILE MENU
+========================================================= */
+
+.profile-menu{
+  position:absolute;
+
+  left:calc(100% + 10px);
+  bottom:0;
+
+  width:190px;
+
+  background:#fff;
+
+  border:1px solid var(--line);
+  border-radius:12px;
+
+  padding:7px;
+
+  box-shadow:
+    0 14px 35px rgba(16,24,40,.14);
+
+  display:none;
+
+  z-index:100;
+}
+
+.profile-menu.open{
+  display:grid;
+  gap:3px;
+}
+
+.profile-menu button{
+  border:0;
+  background:transparent;
+
+  text-align:left;
+
+  padding:9px 10px;
+
+  border-radius:8px;
+
+  color:#667085;
+
+  font-size:11px;
+  font-weight:600;
+
+  cursor:pointer;
+}
+
+.profile-menu button:hover{
+  background:#f5f7fb;
+  color:var(--ink);
+}
+
+.profile-menu .logout-item{
+  color:#d92d20;
+}
+
+.profile-menu .logout-item:hover{
+  background:#fff1f0;
+  color:#b42318;
+}
+
+.profile-divider{
+  height:1px;
+
+  background:var(--line);
+
+  margin:4px 2px;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.label{
+  font-size:9px;
+
+  color:var(--light);
+
+  font-weight:800;
+
+  letter-spacing:1.2px;
+
+  padding:8px 11px;
+}
+
+.nav{
+  display:grid;
+  gap:4px;
+}
+
+.nav button{
+  border:0;
+  background:transparent;
+
+  text-align:left;
+
+  width:100%;
+
+  padding:11px 12px;
+
+  border-radius:10px;
+
+  color:#667085;
+
+  font-weight:600;
+
+  font-size:12px;
+
+  display:flex;
+  align-items:center;
+
+  gap:11px;
+
+  transition:
+    background .18s ease,
+    color .18s ease,
+    transform .18s ease;
+}
+
+.nav button:hover{
+  background:#f5f7fb;
+  color:var(--ink);
+}
+
+.nav button.active{
+  background:rgba(108,175,8,.10);
+
+  color:#5f9d07;
+
+  box-shadow:
+    inset 3px 0 var(--green),
+    0 0 18px rgba(108,175,8,.10);
+}
+
+.nav button .icon{
+  width:18px;
+
+  text-align:center;
+
+  font-size:14px;
+
+  opacity:.9;
+}
+
+.nav button .chev{
+  margin-left:auto;
+
+  color:#98a2b3;
+
+  font-size:10px;
+}
+
+.nav-group>.nav-trigger .chev{
+  transition:
+    transform .2s ease,
+    color .2s ease;
+}
+
+.nav-group.open>.nav-trigger .chev{
+  transform:rotate(90deg);
+
+  color:var(--blue);
+}
+
+
+/* =========================================================
+   SUB NAVIGATION
+========================================================= */
+
+.subnav{
+  display:grid;
+  gap:2px;
+
+  margin:
+    0
+    0
+    5px
+    30px;
+
+  padding-left:10px;
+
+  border-left:1px solid #e7eaf0;
+
+  overflow:hidden;
+
+  max-height:0;
+
+  opacity:0;
+
+  transition:
+    max-height .22s ease,
+    opacity .18s ease;
+}
+
+.nav-group.open .subnav{
+  max-height:260px;
+  opacity:1;
+}
+
+.subnav button{
+  border:0;
+  background:transparent;
+
+  text-align:left;
+
+  width:100%;
+
+  padding:8px 9px;
+
+  border-radius:8px;
+
+  color:#7a8596;
+
+  font-size:10px;
+
+  font-weight:600;
+}
+
+.subnav button:hover{
+  background:#f5f7fb;
+  color:var(--ink);
+}
+
+.subnav button.active{
+  background:#eef8e5;
+  color:var(--green-dark);
+}
+
+
+/* =========================================================
+   ACCOUNT AREA
+========================================================= */
+
+.account{
+  margin-top:auto;
+}
+
+
+/* =========================================================
+   MAIN AREA
+========================================================= */
+
+.main{
+  margin-left:248px;
+
+  min-height:100vh;
+}
+
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.top{
+  height:68px;
+
+  background:rgba(255,255,255,.94);
+
+  border-bottom:1px solid var(--line);
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:0 30px;
+
+  position:sticky;
+  top:0;
+
+  z-index:10;
+
+  backdrop-filter:blur(14px);
+}
+
+.crumb{
+  font-size:11px;
+  color:var(--muted);
+}
+
+.crumb b{
+  color:var(--ink);
+}
+
+.top-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.circle{
+  width:36px;
+  height:36px;
+
+  border:1px solid var(--line);
+
+  border-radius:50%;
+
+  background:#fff;
+
+  color:#667085;
+}
+
+.user-chip{
+  height:36px;
+
+  border:1px solid var(--line);
+
+  border-radius:20px;
+
+  background:#fff;
+
+  padding:
+    0
+    10px
+    0
+    5px;
+
+  display:flex;
+  align-items:center;
+
+  gap:7px;
+
+  font-size:10px;
+  font-weight:700;
+
+  color:var(--ink);
+}
+
+.user-chip .mini-avatar{
+  width:26px;
+  height:26px;
+
+  border-radius:50%;
+
+  background:#eaf0ff;
+
+  color:var(--blue);
+
+  display:grid;
+  place-items:center;
+
+  font-size:9px;
+}
+
+
+/* =========================================================
+   MOBILE TOGGLE
+========================================================= */
+
+.mobile-toggle{
+  display:none;
+}
+
+
+/* =========================================================
+   PAGE WRAPPER
+========================================================= */
+
+.wrap{
+  max-width:1440px;
+
+  margin:auto;
+
+  padding:30px;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.head{
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:flex-end;
+
+  gap:18px;
+
+  margin-bottom:22px;
+}
+
+.eyebrow{
+  font-size:9px;
+
+  letter-spacing:1.25px;
+
+  color:#7a8596;
+
+  font-weight:800;
+}
+
+h1{
+  margin:5px 0 4px;
+
+  color:var(--ink);
+
+  font-size:28px;
+
+  letter-spacing:-1px;
+}
+
+.sub{
+  margin:0;
+
+  color:var(--muted);
+
+  font-size:11px;
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn{
+  border:1px solid var(--line);
+
+  background:#fff;
+
+  color:#475467;
+
+  border-radius:10px;
+
+  padding:10px 14px;
+
+  font-size:10px;
+
+  font-weight:700;
+
+  transition:
+    .18s ease;
+}
+
+.btn:hover{
+  background:#f8fafc;
+
+  border-color:#d8dee9;
+
+  transform:translateY(-1px);
+}
+
+.btn.primary{
+  border:0;
+
+  color:#fff;
+
+  background:var(--green);
+
+  box-shadow:
+    0 9px 22px rgba(108,175,8,.20);
+}
+
+.btn.primary:hover{
+  background:var(--green-dark);
+
+  transform:translateY(-1px);
+
+  box-shadow:
+    0 10px 24px rgba(108,175,8,.24);
+}
+
+
+/* =========================================================
+   DASHBOARD OVERVIEW
+========================================================= */
+
+.overview{
+  display:grid;
+
+  grid-template-columns:
+    1.5fr
+    1fr
+    1fr;
+
+  gap:14px;
+
+  margin-bottom:14px;
+}
+
+
+/* =========================================================
+   BALANCE CARD
+========================================================= */
+
+.balance{
+  background:
+    linear-gradient(
+      145deg,
+      #6caf08 0%,
+      #78bd18 58%,
+      #5f9d07 100%
+    );
+
+  color:#fff;
+
+  border-radius:18px;
+
+  padding:22px;
+
+  min-height:175px;
+
+  position:relative;
+
+  overflow:hidden;
+
+  box-shadow:
+    0 15px 38px rgba(108,175,8,.28),
+    0 0 30px rgba(108,175,8,.12);
+}
+
+.balance:after{
+  content:"";
+
+  position:absolute;
+
+  width:280px;
+  height:280px;
+
+  border-radius:50%;
+
+  right:-125px;
+  top:-165px;
+
+  background:rgba(255,255,255,.16);
+}
+
+.balance>*{
+  position:relative;
+
+  z-index:1;
+}
+
+.balance-top{
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+}
+
+.balance-label{
+  font-size:9px;
+
+  font-weight:800;
+
+  letter-spacing:.9px;
+
+  color:rgba(255,255,255,.76);
+}
+
+.badge{
+  font-size:8px;
+
+  font-weight:800;
+
+  padding:6px 8px;
+
+  border-radius:999px;
+
+  background:rgba(255,255,255,.14);
+
+  border:
+    1px solid
+    rgba(255,255,255,.2);
+}
+
+.amount{
+  font-size:31px;
+
+  font-weight:800;
+
+  letter-spacing:-1.3px;
+
+  margin-top:22px;
+}
+
+.balance-foot{
+  display:flex;
+
+  justify-content:space-between;
+
+  margin-top:24px;
+
+  font-size:9px;
+
+  color:rgba(255,255,255,.78);
+}
+
+
+/* =========================================================
+   METRIC CARDS
+========================================================= */
+
+.metric{
+  background:#fff;
+
+  border:1px solid var(--line);
+
+  border-radius:18px;
+
+  padding:20px;
+
+  box-shadow:var(--shadow);
+
+  min-height:175px;
+}
+
+.metric-top{
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+}
+
+.metric-label{
+  font-size:9px;
+
+  font-weight:800;
+
+  letter-spacing:.7px;
+
+  color:var(--muted);
+}
+
+.metric-icon{
+  width:34px;
+  height:34px;
+
+  border-radius:10px;
+
+  background:var(--soft);
+
+  color:var(--blue);
+
+  display:grid;
+  place-items:center;
+
+  font-size:14px;
+}
+
+.metric strong{
+  display:block;
+
+  color:var(--ink);
+
+  font-size:25px;
+
+  letter-spacing:-.7px;
+
+  margin-top:23px;
+}
+
+.metric .change{
+  font-size:9px;
+
+  font-weight:700;
+
+  color:#0b8b62;
+
+  margin-top:5px;
+}
+
+.metric .muted{
+  color:var(--muted);
+
+  font-weight:500;
+}
+
+
+/* =========================================================
+   DASHBOARD GRID
+========================================================= */
+
+.grid{
+  display:grid;
+
+  grid-template-columns:
+    1.55fr
+    .85fr;
+
+  gap:14px;
+}
+
+
+/* =========================================================
+   PANELS
+========================================================= */
+
+.panel{
+  background:#fff;
+
+  border:1px solid var(--line);
+
+  border-radius:18px;
+
+  box-shadow:var(--shadow);
+}
+
+.panel-head{
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  padding:
+    18px
+    19px
+    12px;
+}
+
+.panel-head h2{
+  font-size:13px;
+
+  color:var(--ink);
+
+  margin:0;
+}
+
+.panel-head p{
+  font-size:9px;
+
+  color:var(--muted);
+
+  margin:4px 0 0;
+}
+
+
+/* =========================================================
+   SELECT
+========================================================= */
+
+.select{
+  border:1px solid var(--line);
+
+  background:#fff;
+
+  border-radius:9px;
+
+  padding:8px 10px;
+
+  font-size:9px;
+
+  color:#475467;
+}
+
+
+/* =========================================================
+   CHART
+========================================================= */
+
+.chart{
+  position:relative;
+
+  padding:
+    7px
+    0
+    0;
+
+  height:245px;
+}
+
+.chart svg{
+  width:100%;
+
+  height:100%;
+
+  overflow:visible;
+}
+
+.chart-label{
+  font-size:9px;
+
+  fill:#98a2b3;
+}
+
+.chart-grid line{
+  stroke:#edf0f5;
+
+  stroke-width:1;
+}
+
+.activity-area{
+  fill:url(#activityAreaGradient);
+
+  transition:
+    d .35s ease;
+}
+
+.activity-line{
+  fill:none;
+
+  stroke:#1e63f2;
+
+  stroke-width:3;
+
+  stroke-linecap:round;
+
+  stroke-linejoin:round;
+
+  filter:
+    drop-shadow(
+      0 5px 7px
+      rgba(30,99,242,.12)
+    );
+
+  transition:
+    d .35s ease;
+}
+
+.activity-point{
+  fill:#fff;
+
+  stroke:#1e63f2;
+
+  stroke-width:2;
+
+  opacity:0;
+
+  transition:
+    opacity .15s;
+}
+
+.activity-point.active{
+  opacity:1;
+}
+
+
+/* =========================================================
+   CHART SUMMARY
+========================================================= */
+
+.chart-shell{
+  padding:
+    0
+    19px
+    18px;
+}
+
+.chart-summary{
+  display:flex;
+
+  align-items:flex-end;
+
+  justify-content:space-between;
+
+  gap:18px;
+
+  padding:
+    2px
+    0
+    4px;
+}
+
+.chart-kicker{
+  display:block;
+
+  font-size:8px;
+
+  letter-spacing:.9px;
+
+  color:#98a2b3;
+
+  font-weight:800;
+}
+
+.chart-summary strong{
+  display:block;
+
+  color:var(--ink);
+
+  font-size:23px;
+
+  letter-spacing:-.8px;
+
+  margin-top:4px;
+}
+
+.chart-change{
+  display:block;
+
+  color:#0b8b62;
+
+  font-size:8px;
+
+  font-weight:700;
+
+  margin-top:4px;
+}
+
+.chart-legend{
+  font-size:8px;
+
+  color:var(--muted);
+
+  display:flex;
+
+  align-items:center;
+
+  gap:6px;
+
+  padding-bottom:3px;
+}
+
+.chart-legend i{
+  width:7px;
+  height:7px;
+
+  border-radius:50%;
+
+  background:var(--blue);
+
+  display:block;
+}
+
+.chart-tooltip{
+  position:absolute;
+
+  display:none;
+
+  min-width:138px;
+
+  padding:10px 11px;
+
+  background:#101828;
+
+  color:#fff;
+
+  border-radius:10px;
+
+  box-shadow:
+    0 10px 25px
+    rgba(16,24,40,.18);
+
+  font-size:9px;
+
+  pointer-events:none;
+
+  z-index:5;
+}
+
+.chart-tooltip strong{
+  display:block;
+
+  font-size:12px;
+
+  margin-top:3px;
+}
+
+.chart-tooltip span{
+  color:#c7ced9;
+
+  font-size:8px;
+}
+
+.chart-empty{
+  height:100%;
+
+  display:grid;
+
+  place-items:center;
+
+  color:var(--muted);
+
+  font-size:10px;
+}
+
+.chart-empty strong{
+  display:block;
+
+  color:var(--ink);
+
+  font-size:12px;
+
+  margin-bottom:3px;
+}
+
+
+/* =========================================================
+   DONUT
+========================================================= */
+
+.donut-wrap{
+  padding:
+    7px
+    20px
+    20px;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:18px;
+}
+
+.donut{
+  width:128px;
+  height:128px;
+
+  border-radius:50%;
+
+  background:
+    conic-gradient(
+      var(--blue) 0 62%,
+      #78b52a 62% 81%,
+      #dce6fb 81% 100%
+    );
+
+  position:relative;
+
+  flex:none;
+}
+
+.donut:after{
+  content:"";
+
+  position:absolute;
+
+  inset:25px;
+
+  background:#fff;
+
+  border-radius:50%;
+}
+
+.donut-center{
+  position:absolute;
+
+  inset:0;
+
+  display:grid;
+
+  place-items:center;
+
+  z-index:1;
+
+  text-align:center;
+}
+
+.donut-center strong{
+  font-size:18px;
+
+  color:var(--ink);
+
+  display:block;
+}
+
+.donut-center span{
+  font-size:8px;
+
+  color:var(--muted);
+}
+
+
+/* =========================================================
+   LEGEND
+========================================================= */
+
+.legend{
+  display:grid;
+
+  gap:12px;
+
+  width:100%;
+}
+
+.legend-row{
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  font-size:9px;
+
+  color:var(--muted);
+}
+
+.legend-row b{
+  color:var(--ink);
+}
+
+.dot{
+  width:8px;
+  height:8px;
+
+  border-radius:50%;
+
+  display:inline-block;
+
+  margin-right:7px;
+}
+
+.blue{
+  background:var(--blue);
+}
+
+.green{
+  background:#78b52a;
+}
+
+.gray{
+  background:#dce6fb;
+}
+
+
+/* =========================================================
+   TABLES
+========================================================= */
+
+.table-panel{
+  margin-top:14px;
+}
+
+.table-wrap{
+  overflow:auto;
+
+  padding:
+    0
+    19px
+    17px;
+}
+
+table{
+  width:100%;
+
+  border-collapse:collapse;
+
+  min-width:650px;
+}
+
+th,
+td{
+  text-align:left;
+
+  border-bottom:1px solid #edf0f5;
+
+  padding:12px 8px;
+
+  font-size:9px;
+}
+
+th{
+  text-transform:uppercase;
+
+  color:#98a2b3;
+
+  font-size:8px;
+
+  font-weight:800;
+}
+
+td strong{
+  color:var(--ink);
+}
+
+
+/* =========================================================
+   STATUS
+   ONE MASTER VERSION
+========================================================= */
+
+.status{
+  display:inline-block;
+
+  padding:4px 7px;
+
+  border-radius:999px;
+
+  font-size:8px;
+
+  font-weight:800;
+
+  background:#ecfdf3;
+
+  color:#18794e;
+}
+
+.status.success{
+  background:#e8f8f1;
+
+  color:#0b8b62;
+}
+
+.status.pending{
+  background:#fffaeb;
+
+  color:#b54708;
+}
+
+.status.failed,
+.status.danger{
+  background:#fef3f2;
+
+  color:#b42318;
+}
+
+
+/* =========================================================
+   EMPTY STATES
+========================================================= */
+
+.empty{
+  padding:35px 20px;
+
+  text-align:center;
+
+  color:var(--muted);
+}
+
+.empty-icon{
+  width:46px;
+  height:46px;
+
+  border-radius:14px;
+
+  background:var(--soft);
+
+  color:var(--blue);
+
+  display:grid;
+
+  place-items:center;
+
+  margin:0 auto 11px;
+
+  font-size:18px;
+}
+
+.empty strong{
+  display:block;
+
+  color:var(--ink);
+
+  font-size:12px;
+
+  margin-bottom:4px;
+}
+
+.empty span{
+  font-size:9px;
+}
+
+
+/* =========================================================
+   QUICK ACTIONS
+========================================================= */
+
+.quick{
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:9px;
+
+  padding:
+    5px
+    19px
+    19px;
+}
+
+.quick button{
+  border:1px solid var(--line);
+
+  background:#fff;
+
+  border-radius:11px;
+
+  padding:12px 10px;
+
+  text-align:left;
+
+  font-size:9px;
+
+  font-weight:700;
+
+  color:var(--ink);
+
+  display:flex;
+
+  align-items:center;
+
+  gap:9px;
+
+  transition:.18s ease;
+}
+
+.quick button:hover{
+  background:#f8faff;
+
+  border-color:#dbe5ff;
+
+  transform:translateY(-1px);
+}
+
+.quick i{
+  width:30px;
+  height:30px;
+
+  border-radius:9px;
+
+  background:var(--soft-green);
+
+  color:var(--green);
+
+  display:grid;
+
+  place-items:center;
+
+  font-style:normal;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+  padding:
+    20px
+    0
+    8px;
+
+  color:#98a2b3;
+
+  font-size:9px;
+
+  display:flex;
+
+  justify-content:space-between;
+}
+
+
+/* =========================================================
+   MERCHANT PAGE
+========================================================= */
+
+.merchant-page{
+  display:none;
+}
+
+.merchant-page .page-head{
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:flex-start;
+
+  gap:18px;
+
+  margin-bottom:14px;
+}
+
+.merchant-page .page-head h1{
+  margin:4px 0;
+
+  font-size:23px;
+}
+
+.merchant-page .page-sub{
+  margin:0;
+
+  color:var(--muted);
+
+  font-size:10px;
+}
+
+.merchant-page .eyebrow{
+  font-size:9px;
+
+  letter-spacing:.12em;
+
+  color:var(--green);
+
+  font-weight:800;
+}
+
+
+/* =========================================================
+   MERCHANT GRID
+========================================================= */
+
+.merchant-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:14px;
+}
+
+.merchant-card{
+  background:#fff;
+
+  border:1px solid var(--line);
+
+  border-radius:14px;
+
+  padding:16px;
+}
+
+.merchant-card h2{
+  font-size:13px;
+
+  margin:0 0 6px;
+}
+
+.merchant-card h3{
+  font-size:12px;
+
+  margin:0 0 5px;
+}
+
+.merchant-card p{
+  font-size:10px;
+
+  color:var(--muted);
+
+  line-height:1.55;
+}
+
+
+/* =========================================================
+   MERCHANT TABLE
+========================================================= */
+
+.merchant-table{
+  background:#fff;
+
+  border:1px solid var(--line);
+
+  border-radius:14px;
+
+  overflow:hidden;
+}
+
+.merchant-table-head{
+  padding:
+    14px
+    16px;
+
+  border-bottom:1px solid var(--line);
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  gap:10px;
+}
+
+.merchant-table-head h2{
+  font-size:13px;
+
+  margin:0;
+}
+
+.merchant-table-head p{
+  font-size:9px;
+
+  color:var(--muted);
+
+  margin:4px 0 0;
+}
+
+.merchant-table table{
+  width:100%;
+
+  border-collapse:collapse;
+
+  min-width:650px;
+}
+
+.merchant-table th,
+.merchant-table td{
+  padding:11px 12px;
+
+  border-bottom:1px solid var(--line);
+
+  text-align:left;
+
+  font-size:9px;
+}
+
+.merchant-table th{
+  color:var(--muted);
+
+  font-weight:700;
+
+  background:#fbfcfe;
+}
+
+
+/* =========================================================
+   MERCHANT EMPTY STATE
+========================================================= */
+
+.empty-state{
+  text-align:center;
+
+  padding:38px 20px;
+
+  color:var(--muted);
+}
+
+.empty-state .empty-icon{
+  margin:
+    0
+    auto
+    10px;
+
+  width:38px;
+  height:38px;
+
+  border-radius:10px;
+
+  background:#eef6ff;
+
+  color:var(--blue);
+
+  display:grid;
+
+  place-items:center;
+}
+
+.empty-state strong{
+  display:block;
+
+  color:var(--ink);
+
+  font-size:11px;
+}
+
+.empty-state span{
+  display:block;
+
+  font-size:9px;
+
+  margin:
+    5px
+    auto
+    13px;
+
+  max-width:400px;
+}
+
+
+/* =========================================================
+   MINI STATS
+========================================================= */
+
+.mini-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:10px;
+}
+
+.mini-stat{
+  background:#f8fafc;
+
+  border:1px solid var(--line);
+
+  padding:12px;
+
+  border-radius:10px;
+}
+
+.mini-stat b{
+  display:block;
+
+  font-size:15px;
+
+  margin-top:4px;
+}
+
+.mini-stat span{
+  font-size:8px;
+
+  color:var(--muted);
+}
+
+
+/* =========================================================
+   DETAIL ROWS
+========================================================= */
+
+.detail-row{
+  display:flex;
+
+  justify-content:space-between;
+
+  gap:15px;
+
+  padding:10px 0;
+
+  border-bottom:1px solid var(--line);
+
+  font-size:9px;
+}
+
+.detail-row span{
+  color:var(--muted);
+}
+
+
+/* =========================================================
+   CODE / NOTICE
+========================================================= */
+
+.code{
+  background:#101828;
+
+  color:#e6edf3;
+
+  border-radius:10px;
+
+  padding:14px;
+
+  overflow:auto;
+
+  font-size:9px;
+
+  line-height:1.55;
+}
+
+.notice{
+  padding:11px;
+
+  border:
+    1px solid
+    #fedf89;
+
+  background:#fffaeb;
+
+  border-radius:9px;
+
+  color:#7a4d00;
+
+  font-size:9px;
+
+  margin-top:10px;
+}
+
+
+/* =========================================================
+   INVOICE WORKSPACE
+========================================================= */
+
+.invoice-workspace{
+  display:grid;
+
+  gap:16px;
+}
+
+
+/* =========================================================
+   INVOICE TABS
+========================================================= */
+
+.invoice-tabs{
+  display:flex;
+
+  align-items:center;
+
+  gap:5px;
+
+  background:#fff;
+
+  border:1px solid var(--line);
+
+  border-radius:12px;
+
+  padding:5px;
+
+  width:max-content;
+
+  max-width:100%;
+
+  overflow:auto;
+
+  box-shadow:
+    0 4px 16px
+    rgba(16,24,40,.04);
+}
+
+.invoice-tab{
+  border:0;
+
+  background:transparent;
+
+  color:var(--muted);
+
+  border-radius:8px;
+
+  padding:9px 13px;
+
+  font-size:9px;
+
+  font-weight:700;
+
+  white-space:nowrap;
+
+  transition:
+    background .18s ease,
+    color .18s ease;
+}
+
+.invoice-tab:hover{
+  background:#f5f7fb;
+
+  color:var(--ink);
+}
+
+.invoice-tab.active{
+  background:var(--soft-green);
+
+  color:var(--green-dark);
+
+  box-shadow:
+    inset 0 0 0 1px
+    rgba(108,175,8,.12);
+}
+
+
+/* =========================================================
+   INVOICE TAB CONTENT
+========================================================= */
+
+.invoice-tab-content{
+  display:none;
+}
+
+.invoice-tab-content.active{
+  display:block;
+}
+
+
+/* =========================================================
+   INVOICE SECTION HEADER
+========================================================= */
+
+.invoice-section-head{
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:15px;
+
+  margin-bottom:14px;
+}
+
+.invoice-section-head h2{
+  margin:0;
+
+  color:var(--ink);
+
+  font-size:14px;
+}
+
+.invoice-section-head p{
+  margin:5px 0 0;
+
+  color:var(--muted);
+
+  font-size:9px;
+}
+
+
+/* =========================================================
+   INVOICE FORM CARD
+========================================================= */
+
+.invoice-form-card{
+  background:#fff;
+
+  border:1px solid var(--line);
+
+  border-radius:16px;
+
+  padding:22px;
+
+  box-shadow:var(--shadow);
+}
+
+
+/* =========================================================
+   INVOICE FORM GRID
+========================================================= */
+
+.invoice-form-grid{
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap:13px;
+}
+
+.form-field{
+  display:grid;
+
+  gap:6px;
+}
+
+.form-field.full{
+  grid-column:1 / -1;
+}
+
+.form-field label{
+  color:var(--ink);
+
+  font-size:9px;
+
+  font-weight:700;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.input{
+  width:100%;
+
+  border:1px solid var(--line);
+
+  background:#fff;
+
+  color:var(--ink);
+
+  border-radius:9px;
+
+  padding:
+    10px
+    11px;
+
+  font:inherit;
+
+  font-size:10px;
+
+  outline:none;
+
+  transition:
+    border-color .18s ease,
+    box-shadow .18s ease;
+}
+
+.input::placeholder{
+  color:#98a2b3;
+}
+
+.input:focus{
+  border-color:#b9cdfb;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(30,99,242,.08);
+}
+
+textarea.input{
+  resize:vertical;
+}
+
+
+/* =========================================================
+   INVOICE ACTIONS
+========================================================= */
+
+.invoice-actions{
+  display:flex;
+
+  justify-content:flex-end;
+
+  gap:8px;
+
+  margin-top:18px;
+
+  padding-top:15px;
+
+  border-top:1px solid var(--line);
+}
+
+
+/* =========================================================
+   INVOICE TABLE
+========================================================= */
+
+.invoice-table{
+  width:100%;
+
+  overflow:auto;
+}
+
+.invoice-table-head,
+.invoice-row{
+  display:grid;
+
+  grid-template-columns:
+    1.1fr
+    1.3fr
+    1fr
+    1fr
+    .8fr;
+
+  gap:12px;
+
+  align-items:center;
+
+  min-width:650px;
+}
+
+.invoice-table-head{
+  padding:
+    11px
+    12px;
+
+  background:#fbfcfe;
+
+  border-bottom:1px solid var(--line);
+
+  color:var(--muted);
+
+  font-size:8px;
+
+  font-weight:800;
+
+  text-transform:uppercase;
+}
+
+.invoice-row{
+  padding:
+    13px
+    12px;
+
+  border-bottom:1px solid var(--line);
+
+  color:var(--text);
+
+  font-size:9px;
+}
+
+.invoice-row:last-child{
+  border-bottom:0;
+}
+
+
+/* =========================================================
+   INVOICE MOBILE
+========================================================= */
+
+@media(max-width:700px){
+
+  .invoice-tabs{
+    width:100%;
   }
+
+  .invoice-section-head{
+    align-items:flex-start;
+
+    flex-direction:column;
+  }
+
+  .invoice-form-card{
+    padding:16px;
+  }
+
+  .invoice-form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .form-field.full{
+    grid-column:auto;
+  }
+
+  .invoice-actions{
+    justify-content:stretch;
+  }
+
+  .invoice-actions .btn{
+    flex:1;
+  }
+
+}
+
+
+/* =========================================================
+   GENERAL RESPONSIVE — 1050px
+========================================================= */
+
+@media(max-width:1050px){
+
+  .overview{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .balance{
+    grid-column:1 / -1;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — 900px
+========================================================= */
+
+@media(max-width:900px){
+
+  .merchant-grid{
+    grid-template-columns:1fr;
+  }
+
+  .mini-grid{
+    grid-template-columns:
+      1fr
+      1fr;
+  }
+
+  .merchant-page .page-head{
+    flex-direction:column;
+  }
+
+  .merchant-page .page-head .actions{
+    width:100%;
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — 760px
+========================================================= */
+
+@media(max-width:760px){
+
+  .sidebar{
+    transform:translateX(-100%);
+
+    transition:
+      transform .2s ease;
+  }
+
+  .sidebar.open{
+    transform:none;
+
+    box-shadow:
+      20px 0 50px
+      rgba(16,24,40,.15);
+  }
+
+  .main{
+    margin-left:0;
+  }
+
+  .mobile-toggle{
+    display:block;
+  }
+
+  .top{
+    padding:0 15px;
+  }
+
+  .crumb{
+    display:none;
+  }
+
+  .wrap{
+    padding:18px;
+  }
+
+  .head{
+    flex-direction:column;
+
+    align-items:flex-start;
+  }
+
+  .actions{
+    width:100%;
+  }
+
+  .actions .btn{
+    flex:1;
+  }
+
+  .overview{
+    grid-template-columns:1fr;
+  }
+
+  .balance{
+    grid-column:auto;
+  }
+
+  .footer{
+    flex-direction:column;
+
+    gap:7px;
+  }
+
+  .chart-summary{
+    align-items:flex-start;
+
+    flex-direction:column;
+
+    gap:7px;
+  }
+
+  .chart{
+    height:220px;
+  }
+
+  .profile-menu{
+    left:0;
+
+    bottom:
+      calc(100% + 8px);
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — 540px
+========================================================= */
+
+@media(max-width:540px){
+
+  .mini-grid{
+    grid-template-columns:1fr;
+  }
+
+  .merchant-table-head{
+    align-items:flex-start;
+
+    flex-direction:column;
+  }
+
+  .merchant-table-head .btn{
+    width:100%;
+  }
+
+  .merchant-page .page-head h1{
+    font-size:21px;
+  }
+
+  h1{
+    font-size:24px;
+  }
+
+  .amount{
+    font-size:27px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media(max-width:420px){
+
+  .wrap{
+    padding:14px;
+  }
+
+  .top{
+    height:62px;
+  }
+
+  .metric{
+    min-height:150px;
+
+    padding:17px;
+  }
+
+  .balance{
+    padding:18px;
+  }
+
+  .invoice-form-card{
+    padding:14px;
+  }
+
+  .invoice-tab{
+    padding:
+      8px
+      10px;
+
+    font-size:8px;
+  }
+
 }
 </style>
 </head>
@@ -272,7 +2503,7 @@ td strong{color:var(--ink)}
     <button class="active" onclick="go('dashboard')"><span class="icon">⌂</span>Dashboard</button>
 
     <div class="nav-group" id="paymentsGroup">
-      <button class="nav-trigger" onclick="toggleNav('paymentsGroup')"><span class="icon">↗</span>Payments<span class="chev">›</span></button>
+      <button class="nav-trigger" type="button" aria-expanded="false" onclick="toggleNav('paymentsGroup')"><span class="icon">↗</span>Payments<span class="chev">›</span></button>
       <div class="subnav">
         <button onclick="go('invoices')">Invoices</button>
         <button onclick="go('creditlist')">Creditlist</button>
@@ -280,7 +2511,7 @@ td strong{color:var(--ink)}
     </div>
 
     <div class="nav-group" id="transactionsGroup">
-      <button class="nav-trigger" onclick="toggleNav('transactionsGroup')"><span class="icon">▤</span>Transactions<span class="chev">›</span></button>
+      <button class="nav-trigger" type="button" aria-expanded="false" onclick="toggleNav('transactionsGroup')"><span class="icon">▤</span>Transactions<span class="chev">›</span></button>
       <div class="subnav">
         <button onclick="go('transactions')">Transactions</button>
         <button onclick="go('refunds')">Refunds</button>
@@ -288,7 +2519,7 @@ td strong{color:var(--ink)}
     </div>
 
     <div class="nav-group" id="accountsGroup">
-      <button class="nav-trigger" onclick="toggleNav('accountsGroup')"><span class="icon">◉</span>Accounts<span class="chev">›</span></button>
+      <button class="nav-trigger" type="button" aria-expanded="false" onclick="toggleNav('accountsGroup')"><span class="icon">◉</span>Accounts<span class="chev">›</span></button>
       <div class="subnav">
         <button onclick="go('subaccounts')">Sub-accounts</button>
         <button onclick="go('banks')">Banks</button>
@@ -300,7 +2531,7 @@ td strong{color:var(--ink)}
   <div class="label" style="margin-top:10px">MANAGEMENT</div>
   <nav class="nav">
     <div class="nav-group" id="settingsGroup">
-      <button class="nav-trigger" onclick="toggleNav('settingsGroup')"><span class="icon">⚙</span>Settings<span class="chev">›</span></button>
+      <button class="nav-trigger" type="button" aria-expanded="false" onclick="toggleNav('settingsGroup')"><span class="icon">⚙</span>Settings<span class="chev">›</span></button>
       <div class="subnav">
         <button onclick="go('compliance')">Compliance</button>
         <button onclick="go('api-keys')">API-keys</button>
@@ -379,7 +2610,7 @@ td strong{color:var(--ink)}
         <div class="chart" id="activityChart">
           <svg id="activitySvg" viewBox="0 0 720 210" preserveAspectRatio="none" aria-label="Transaction activity chart">
             <defs>
-              <linearGradient id="activityArea" x1="0" x2="0" y1="0" y2="1">
+              <linearGradient id="activityAreaGradient" x1="0" x2="0" y1="0" y2="1">
                 <stop offset="0%" stop-color="#1e63f2" stop-opacity=".18"/>
                 <stop offset="100%" stop-color="#1e63f2" stop-opacity="0"/>
               </linearGradient>
@@ -390,7 +2621,7 @@ td strong{color:var(--ink)}
               <line x1="0" y1="125" x2="720" y2="125"/>
               <line x1="0" y1="175" x2="720" y2="175"/>
             </g>
-            <path id="activityArea" class="activity-area" d=""></path>
+            <path id="activityAreaPath" class="activity-area" d=""></path>
             <path id="activityLine" class="activity-line" d=""></path>
             <g id="activityPoints"></g>
             <g id="activityLabels" class="chart-label"></g>
@@ -444,174 +2675,2676 @@ td strong{color:var(--ink)}
 <div id="toast" style="position:fixed;right:22px;bottom:22px;background:#101828;color:#fff;padding:11px 15px;border-radius:10px;font-size:10px;opacity:0;transform:translateY(8px);transition:.2s;z-index:100"></div>
 <script>
 
+/* =========================================================
+   ACTIVITY DATA
+========================================================= */
+
 const activityData = {
+
   "Last 7 days": [
-    {label:"12 Aug", value:92000, count:8}, {label:"13 Aug", value:118000, count:11},
-    {label:"14 Aug", value:76000, count:7}, {label:"15 Aug", value:164000, count:14},
-    {label:"16 Aug", value:142000, count:12}, {label:"17 Aug", value:196000, count:17},
-    {label:"18 Aug", value:184000, count:15}
+    { label: "12 Aug", value: 92000, count: 8 },
+    { label: "13 Aug", value: 118000, count: 11 },
+    { label: "14 Aug", value: 76000, count: 7 },
+    { label: "15 Aug", value: 164000, count: 14 },
+    { label: "16 Aug", value: 142000, count: 12 },
+    { label: "17 Aug", value: 196000, count: 17 },
+    { label: "18 Aug", value: 184000, count: 15 }
   ],
+
   "Last 30 days": [
-    {label:"01", value:42000, count:4}, {label:"03", value:68000, count:6},
-    {label:"06", value:91000, count:8}, {label:"09", value:74000, count:7},
-    {label:"12", value:132000, count:10}, {label:"15", value:168000, count:14},
-    {label:"18", value:184000, count:15}, {label:"21", value:208000, count:18},
-    {label:"24", value:226000, count:19}, {label:"27", value:312000, count:24},
-    {label:"30", value:341000, count:27}
+    { label: "01", value: 42000, count: 4 },
+    { label: "03", value: 68000, count: 6 },
+    { label: "06", value: 91000, count: 8 },
+    { label: "09", value: 74000, count: 7 },
+    { label: "12", value: 132000, count: 10 },
+    { label: "15", value: 168000, count: 14 },
+    { label: "18", value: 184000, count: 15 },
+    { label: "21", value: 208000, count: 18 },
+    { label: "24", value: 226000, count: 19 },
+    { label: "27", value: 312000, count: 24 },
+    { label: "30", value: 341000, count: 27 }
   ],
+
   "This year": [
-    {label:"Jan", value:186000, count:16}, {label:"Feb", value:214000, count:18},
-    {label:"Mar", value:238000, count:20}, {label:"Apr", value:272000, count:23},
-    {label:"May", value:296000, count:25}, {label:"Jun", value:318000, count:27},
-    {label:"Jul", value:362000, count:30}, {label:"Aug", value:454000, count:39}
+    { label: "Jan", value: 186000, count: 16 },
+    { label: "Feb", value: 214000, count: 18 },
+    { label: "Mar", value: 238000, count: 20 },
+    { label: "Apr", value: 272000, count: 23 },
+    { label: "May", value: 296000, count: 25 },
+    { label: "Jun", value: 318000, count: 27 },
+    { label: "Jul", value: 362000, count: 30 },
+    { label: "Aug", value: 454000, count: 39 }
   ]
+
 };
 
-const activitySelect = document.querySelector('.select');
-const svg = document.getElementById('activitySvg');
-const linePath = document.getElementById('activityLine');
-const areaPath = document.getElementById('activityArea');
-const pointsLayer = document.getElementById('activityPoints');
-const labelsLayer = document.getElementById('activityLabels');
-const tooltip = document.getElementById('chartTooltip');
-const chartHost = document.getElementById('activityChart');
 
-function formatNaira(value){
-  if(value >= 1000000) return '₦' + (value/1000000).toFixed(2) + 'm';
-  if(value >= 1000) return '₦' + Math.round(value/1000) + 'k';
-  return '₦' + Math.round(value);
+/* =========================================================
+   FORMAT NAIRA
+========================================================= */
+
+function formatNaira(value) {
+
+  value = Number(value) || 0;
+
+  if (value >= 1000000) {
+    return "₦" + (value / 1000000).toFixed(2) + "m";
+  }
+
+  if (value >= 1000) {
+    return "₦" + Math.round(value / 1000) + "k";
+  }
+
+  return "₦" + Math.round(value);
+
 }
 
-function renderActivityChart(period){
+
+/* =========================================================
+   DASHBOARD CHART
+========================================================= */
+
+function renderActivityChart(period) {
+
+  const svg = document.getElementById("activitySvg");
+  const linePath = document.getElementById("activityLine");
+  const areaPath = document.getElementById("activityAreaPath");
+  const pointsLayer = document.getElementById("activityPoints");
+  const labelsLayer = document.getElementById("activityLabels");
+  const tooltip = document.getElementById("chartTooltip");
+  const chartHost = document.getElementById("activityChart");
+
   const data = activityData[period];
-  const width = 720, top = 25, bottom = 175;
-  const max = Math.max(...data.map(d => d.value)) * 1.16;
-  const xStep = width / Math.max(data.length - 1, 1);
-  const points = data.map((d,i) => {
-    const x = i * xStep;
-    const y = bottom - ((d.value / max) * (bottom-top));
-    return {...d,x,y};
+
+  if (
+    !data ||
+    !svg ||
+    !linePath ||
+    !areaPath ||
+    !pointsLayer ||
+    !labelsLayer
+  ) {
+    return;
+  }
+
+  const width = 720;
+  const top = 25;
+  const bottom = 175;
+  const chartHeight = 210;
+
+  const maxValue = Math.max(
+    ...data.map(item => item.value)
+  );
+
+  const max = maxValue * 1.16;
+
+  const xStep =
+    width / Math.max(data.length - 1, 1);
+
+
+  /* CREATE POINTS */
+
+  const points = data.map((item, index) => {
+
+    const x = index * xStep;
+
+    const y =
+      bottom -
+      ((item.value / max) * (bottom - top));
+
+    return {
+      ...item,
+      x,
+      y
+    };
+
   });
 
-  const line = points.map((p,i) => (i ? `L${p.x.toFixed(1)},${p.y.toFixed(1)}` : `M${p.x.toFixed(1)},${p.y.toFixed(1)}`)).join(' ');
-  const area = line + ` L${width},${bottom} L0,${bottom} Z`;
-  linePath.setAttribute('d', line);
-  areaPath.setAttribute('d', area);
 
-  pointsLayer.innerHTML = points.map((p,i) =>
-    `<circle class="activity-point" data-index="${i}" cx="${p.x}" cy="${p.y}" r="4"></circle>`
-  ).join('');
+  /* LINE */
 
-  const labelIndexes = data.length <= 8 ? data.map((_,i)=>i) : [0,2,4,6,8,10];
-  labelsLayer.innerHTML = labelIndexes.filter(i=>data[i]).map(i =>
-    `<text x="${points[i].x}" y="202" text-anchor="${i===0?'start':i===data.length-1?'end':'middle'}">${data[i].label}</text>`
-  ).join('');
+  const line = points
+    .map((point, index) => {
 
-  const total = data.reduce((sum,d)=>sum+d.value,0);
-  document.getElementById('chartTotal').textContent = formatNaira(total);
-  document.getElementById('chartChange').textContent = period === 'Last 7 days'
-    ? '↑ 12.8% vs previous period'
-    : period === 'This year'
-      ? '↑ 18.4% vs previous period'
-      : '↑ 18.4% vs previous period';
+      if (index === 0) {
+        return `M${point.x.toFixed(1)},${point.y.toFixed(1)}`;
+      }
 
-  pointsLayer.querySelectorAll('.activity-point').forEach((circle,i)=>{
-    circle.addEventListener('mouseenter',()=>{
-      circle.classList.add('active');
-      const p = points[i];
-      tooltip.innerHTML = `<span>${p.label} · ${p.count} transactions</span><strong>${formatNaira(p.value)}</strong>`;
-      tooltip.style.display='block';
-      const rect = chartHost.getBoundingClientRect();
-      const x = (p.x / width) * chartHost.clientWidth;
-      const y = (p.y / 210) * chartHost.clientHeight;
-      tooltip.style.left = Math.min(Math.max(x - 55, 5), chartHost.clientWidth - 145) + 'px';
-      tooltip.style.top = Math.max(y - 68, 5) + 'px';
+      return `L${point.x.toFixed(1)},${point.y.toFixed(1)}`;
+
+    })
+    .join(" ");
+
+
+  /* AREA */
+
+  const area =
+    line +
+    ` L${width},${bottom}` +
+    ` L0,${bottom} Z`;
+
+  linePath.setAttribute("d", line);
+  areaPath.setAttribute("d", area);
+
+
+  /* POINTS */
+
+  pointsLayer.innerHTML = points
+    .map((point, index) => {
+
+      return `
+        <circle
+          class="activity-point"
+          data-index="${index}"
+          cx="${point.x}"
+          cy="${point.y}"
+          r="4">
+        </circle>
+      `;
+
+    })
+    .join("");
+
+
+  /* X AXIS LABELS */
+
+  let labelIndexes;
+
+  if (data.length <= 8) {
+
+    labelIndexes =
+      data.map((_, index) => index);
+
+  } else {
+
+    labelIndexes = [
+      0,
+      2,
+      4,
+      6,
+      8,
+      data.length - 1
+    ];
+
+  }
+
+  labelIndexes = [
+    ...new Set(labelIndexes)
+  ];
+
+  labelsLayer.innerHTML = labelIndexes
+    .filter(index => data[index])
+    .map(index => {
+
+      const point = points[index];
+
+      const anchor =
+        index === 0
+          ? "start"
+          : index === data.length - 1
+            ? "end"
+            : "middle";
+
+      return `
+        <text
+          x="${point.x}"
+          y="202"
+          text-anchor="${anchor}">
+          ${data[index].label}
+        </text>
+      `;
+
+    })
+    .join("");
+
+
+  /* TOTAL */
+
+  const total = data.reduce(
+    (sum, item) => sum + item.value,
+    0
+  );
+
+  const chartTotal =
+    document.getElementById("chartTotal");
+
+  const chartChange =
+    document.getElementById("chartChange");
+
+  if (chartTotal) {
+
+    chartTotal.textContent =
+      formatNaira(total);
+
+  }
+
+  if (chartChange) {
+
+    chartChange.textContent =
+      period === "Last 7 days"
+        ? "↑ 12.8% vs previous period"
+        : "↑ 18.4% vs previous period";
+
+  }
+
+
+  /* TOOLTIP */
+
+  pointsLayer
+    .querySelectorAll(".activity-point")
+    .forEach((circle, index) => {
+
+      circle.addEventListener("mouseenter", () => {
+
+        const point = points[index];
+
+        circle.classList.add("active");
+
+        if (!tooltip) {
+          return;
+        }
+
+        tooltip.innerHTML = `
+          <span>
+            ${point.label} · ${point.count} transactions
+          </span>
+
+          <strong>
+            ${formatNaira(point.value)}
+          </strong>
+        `;
+
+        tooltip.style.display = "block";
+
+        if (!chartHost) {
+          return;
+        }
+
+        const x =
+          (point.x / width) *
+          chartHost.clientWidth;
+
+        const y =
+          (point.y / chartHeight) *
+          chartHost.clientHeight;
+
+        tooltip.style.left =
+          Math.min(
+            Math.max(x - 55, 5),
+            chartHost.clientWidth - 145
+          ) + "px";
+
+        tooltip.style.top =
+          Math.max(y - 68, 5) + "px";
+
+      });
+
+
+      circle.addEventListener("mouseleave", () => {
+
+        circle.classList.remove("active");
+
+        if (tooltip) {
+          tooltip.style.display = "none";
+        }
+
+      });
+
     });
-    circle.addEventListener('mouseleave',()=>{
-      circle.classList.remove('active');
-      tooltip.style.display='none';
+
+}
+
+
+/* =========================================================
+   ACTIVITY SELECT
+========================================================= */
+
+const activitySelect =
+  document.querySelector(".select");
+
+if (activitySelect) {
+
+  activitySelect.addEventListener(
+    "change",
+    event => {
+
+      renderActivityChart(
+        event.target.value
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   MAIN PAGE SYSTEM
+========================================================= */
+
+const merchantPage =
+  document.getElementById("merchantPage");
+
+const dashboardWrap =
+  document.querySelector(".wrap");
+
+let dashboardSections = [];
+
+if (dashboardWrap) {
+
+  dashboardSections =
+    [...dashboardWrap.children]
+      .filter(element => {
+
+        return (
+          element.id !== "merchantPage" &&
+          !element.classList.contains("footer")
+        );
+
+      });
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function toast(message) {
+
+  const toastElement =
+    document.getElementById("toast");
+
+  if (!toastElement) {
+
+    console.log(message);
+
+    return;
+
+  }
+
+  toastElement.textContent =
+    message;
+
+  toastElement.style.opacity = "1";
+
+  toastElement.style.transform =
+    "translateY(0)";
+
+  clearTimeout(window.tt);
+
+  window.tt = setTimeout(() => {
+
+    toastElement.style.opacity = "0";
+
+    toastElement.style.transform =
+      "translateY(8px)";
+
+  }, 1800);
+
+}
+
+
+/* =========================================================
+   GENERAL BUTTON
+========================================================= */
+
+function pageButton(
+  label,
+  action,
+  cls = "btn primary"
+) {
+
+  return `
+    <button
+      class="${cls}"
+      onclick="toast('${action} opened')">
+      ${label}
+    </button>
+  `;
+
+}
+
+
+/* =========================================================
+   TABLE PAGE
+========================================================= */
+
+function tablePage(
+  title,
+  sub,
+  heads,
+  rows = [],
+  action = ""
+) {
+
+  return `
+
+    <div class="page-head">
+
+      <div>
+
+        <div class="eyebrow">
+          MERCHANT WORKSPACE
+        </div>
+
+        <h1>
+          ${title}
+        </h1>
+
+        <p class="page-sub">
+          ${sub}
+        </p>
+
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="btn"
+          onclick="toast('Search opened')">
+          ⌕ Search
+        </button>
+
+        ${
+          action
+            ? pageButton(action, action)
+            : ""
+        }
+
+      </div>
+
+    </div>
+
+
+    <div class="merchant-table">
+
+      <div class="merchant-table-head">
+
+        <div>
+
+          <h2>
+            ${title}
+          </h2>
+
+          <p>
+            ${sub}
+          </p>
+
+        </div>
+
+        <button
+          class="btn"
+          onclick="toast('Export started')">
+          ↓ Export
+        </button>
+
+      </div>
+
+
+      <div style="overflow:auto">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              ${heads
+                .map(head => `<th>${head}</th>`)
+                .join("")}
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            ${
+              rows.length
+
+                ? rows.map(row => {
+
+                    return `
+
+                      <tr>
+
+                        ${row
+                          .map((value, index) => {
+
+                            const isLast =
+                              index === row.length - 1;
+
+                            if (!isLast) {
+
+                              return `
+                                <td>
+                                  ${value}
+                                </td>
+                              `;
+
+                            }
+
+                            const pending =
+                              /Pending|Processing/.test(value);
+
+                            const danger =
+                              /Failed|Incomplete/.test(value);
+
+                            return `
+                              <td>
+
+                                <span
+                                  class="status ${
+                                    pending
+                                      ? "pending"
+                                      : danger
+                                        ? "danger"
+                                        : ""
+                                  }">
+
+                                  ${value}
+
+                                </span>
+
+                              </td>
+                            `;
+
+                          })
+                          .join("")}
+
+                      </tr>
+
+                    `;
+
+                  }).join("")
+
+                : `
+
+                  <tr>
+
+                    <td colspan="${heads.length}">
+
+                      <div class="empty-state">
+
+                        <div class="empty-icon">
+                          ▤
+                        </div>
+
+                        <strong>
+                          No data yet
+                        </strong>
+
+                        <span>
+                          This demo keeps the merchant workflow from the previous Quidly version while following this new dashboard's layout.
+                        </span>
+
+                        ${
+                          action
+                            ? pageButton(action, action)
+                            : ""
+                        }
+
+                      </div>
+
+                    </td>
+
+                  </tr>
+
+                `
+            }
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   SETTINGS PAGE
+========================================================= */
+
+function settingsPage(
+  title,
+  sub,
+  items
+) {
+
+  return `
+
+    <div class="page-head">
+
+      <div>
+
+        <div class="eyebrow">
+          SETTINGS
+        </div>
+
+        <h1>
+          ${title}
+        </h1>
+
+        <p class="page-sub">
+          ${sub}
+        </p>
+
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="btn primary"
+          onclick="toast('Changes saved in demo mode')">
+          Save changes
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="merchant-grid">
+
+      ${items
+        .map(item => {
+
+          let description =
+            "Configure and monitor this part of your Quidly merchant workspace.";
+
+          if (title === "Compliance") {
+
+            description =
+              "Verification status and required documents are shown here.";
+
+          }
+
+          if (
+            title === "Webhook" &&
+            item === "Signing Secret"
+          ) {
+
+            description =
+              "Generate and rotate the secret used to verify delivery signatures.";
+
+          }
+
+          return `
+
+            <div class="merchant-card">
+
+              <h3>
+                ${item}
+              </h3>
+
+              <p>
+                ${description}
+              </p>
+
+              <button
+                class="btn"
+                onclick="toast('${item} opened')">
+                Open ${item} →
+              </button>
+
+            </div>
+
+          `;
+
+        })
+        .join("")}
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   INVOICE WORKSPACE
+========================================================= */
+
+function invoiceWorkspace() {
+
+  return `
+
+    <div class="page-head">
+
+      <div>
+
+        <div class="eyebrow">
+          PAYMENTS
+        </div>
+
+        <h1>
+          Invoices
+        </h1>
+
+        <p class="page-sub">
+          Create, manage and track invoices from one workspace.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="invoice-workspace">
+
+
+      <!-- INVOICE TABS -->
+
+      <div class="invoice-tabs">
+
+        <button
+          class="invoice-tab active"
+          onclick="switchInvoiceTab('invoice-list', this)">
+          Invoices
+        </button>
+
+        <button
+          class="invoice-tab"
+          onclick="switchInvoiceTab('quick-invoice', this)">
+          Quick Invoice
+        </button>
+
+        <button
+          class="invoice-tab"
+          onclick="switchInvoiceTab('full-invoice', this)">
+          Full Invoice
+        </button>
+
+        <button
+          class="invoice-tab"
+          onclick="switchInvoiceTab('paynow-split', this)">
+          PayNow with Split
+        </button>
+
+      </div>
+
+
+      <!-- INVOICE LIST -->
+
+      <div
+        id="invoice-list"
+        class="invoice-tab-content active">
+
+        <div class="invoice-section-head">
+
+          <div>
+
+            <h2>
+              Invoices
+            </h2>
+
+            <p>
+              View and manage invoices sent to your customers.
+            </p>
+
+          </div>
+
+          <button
+            class="btn primary"
+            onclick="switchInvoiceTab('quick-invoice')">
+            ＋ New invoice
+          </button>
+
+        </div>
+
+
+        <div class="merchant-card">
+
+          <div class="invoice-table">
+
+            <div class="invoice-table-head">
+
+              <span>
+                Invoice ID
+              </span>
+
+              <span>
+                Customer
+              </span>
+
+              <span>
+                Amount
+              </span>
+
+              <span>
+                Due date
+              </span>
+
+              <span>
+                Status
+              </span>
+
+            </div>
+
+
+            <div class="invoice-row">
+
+              <span>
+                INV-1001
+              </span>
+
+              <span>
+                Acme Ltd
+              </span>
+
+              <span>
+                ₦250,000
+              </span>
+
+              <span>
+                28 Aug
+              </span>
+
+              <span class="status pending">
+                Pending
+              </span>
+
+            </div>
+
+
+            <div class="invoice-row">
+
+              <span>
+                INV-1000
+              </span>
+
+              <span>
+                Nova Foods
+              </span>
+
+              <span>
+                ₦120,000
+              </span>
+
+              <span>
+                20 Aug
+              </span>
+
+              <span class="status">
+                Paid
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- QUICK INVOICE -->
+
+      <div
+        id="quick-invoice"
+        class="invoice-tab-content">
+
+        <div class="invoice-form-card">
+
+          <div class="invoice-section-head">
+
+            <div>
+
+              <h2>
+                Quick Invoice
+              </h2>
+
+              <p>
+                Create a simple invoice and send it to your customer quickly.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="invoice-form-grid">
+
+            <div class="form-field">
+
+              <label>
+                Customer name
+              </label>
+
+              <input
+                class="input"
+                id="quickCustomerName"
+                placeholder="Enter customer name">
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label>
+                Customer email
+              </label>
+
+              <input
+                class="input"
+                id="quickCustomerEmail"
+                type="email"
+                placeholder="customer@example.com">
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label>
+                Amount
+              </label>
+
+              <input
+                class="input"
+                id="quickAmount"
+                type="number"
+                placeholder="₦0.00">
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label>
+                Due date
+              </label>
+
+              <input
+                class="input"
+                id="quickDueDate"
+                type="date">
+
+            </div>
+
+          </div>
+
+
+          <div class="invoice-actions">
+
+            <button
+              class="btn"
+              onclick="switchInvoiceTab('invoice-list')">
+              Cancel
+            </button>
+
+            <button
+              class="btn primary"
+              onclick="createQuickInvoice()">
+              Create invoice
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- FULL INVOICE -->
+
+      <div
+        id="full-invoice"
+        class="invoice-tab-content">
+
+        <div class="invoice-form-card">
+
+          <div class="invoice-section-head">
+
+            <div>
+
+              <h2>
+                Full Invoice
+              </h2>
+
+              <p>
+                Create a detailed invoice with customer, items and payment information.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="invoice-form-grid">
+
+            <div class="form-field">
+
+              <label>
+                Customer name
+              </label>
+
+              <input
+                class="input"
+                id="fullCustomerName"
+                placeholder="Enter customer name">
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label>
+                Customer email
+              </label>
+
+              <input
+                class="input"
+                id="fullCustomerEmail"
+                type="email"
+                placeholder="customer@example.com">
+
+            </div>
+
+
+            <div class="form-field full">
+
+              <label>
+                Invoice title
+              </label>
+
+              <input
+                class="input"
+                id="fullInvoiceTitle"
+                placeholder="e.g. Website development">
+
+            </div>
+
+
+            <div class="form-field full">
+
+              <label>
+                Description
+              </label>
+
+              <textarea
+                class="input"
+                id="fullDescription"
+                rows="4"
+                placeholder="Describe the goods or services..."></textarea>
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label>
+                Quantity
+              </label>
+
+              <input
+                class="input"
+                id="fullQuantity"
+                type="number"
+                value="1"
+                min="1">
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label>
+                Amount
+              </label>
+
+              <input
+                class="input"
+                id="fullAmount"
+                type="number"
+                placeholder="₦0.00">
+
+            </div>
+
+          </div>
+
+
+          <div class="invoice-actions">
+
+            <button
+              class="btn"
+              onclick="switchInvoiceTab('invoice-list')">
+              Cancel
+            </button>
+
+            <button
+              class="btn primary"
+              onclick="createFullInvoice()">
+              Create invoice
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- PAYNOW WITH SPLIT -->
+
+      <div
+        id="paynow-split"
+        class="invoice-tab-content">
+
+        <div class="invoice-form-card">
+
+          <div class="invoice-section-head">
+
+            <div>
+
+              <h2>
+                PayNow with Split
+              </h2>
+
+              <p>
+                Create a payment request that allows a customer to pay while the payment is split between recipients.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="invoice-form-grid">
+
+            <div class="form-field">
+
+              <label>
+                Customer name
+              </label>
+
+              <input
+                class="input"
+                id="splitCustomerName"
+                placeholder="Enter customer name">
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label>
+                Customer email
+              </label>
+
+              <input
+                class="input"
+                id="splitCustomerEmail"
+                type="email"
+                placeholder="customer@example.com">
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label>
+                Total amount
+              </label>
+
+              <input
+                class="input"
+                id="splitTotalAmount"
+                type="number"
+                placeholder="₦0.00">
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label>
+                Split recipient
+              </label>
+
+              <input
+                class="input"
+                id="splitRecipient"
+                placeholder="Recipient name">
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label>
+                Split amount
+              </label>
+
+              <input
+                class="input"
+                id="splitAmount"
+                type="number"
+                placeholder="₦0.00">
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label>
+                Payment reference
+              </label>
+
+              <input
+                class="input"
+                id="splitReference"
+                placeholder="Optional reference">
+
+            </div>
+
+          </div>
+
+
+          <div class="invoice-actions">
+
+            <button
+              class="btn"
+              onclick="switchInvoiceTab('invoice-list')">
+              Cancel
+            </button>
+
+            <button
+              class="btn primary"
+              onclick="createPayNowSplit()">
+              Create payment
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   INVOICE TAB SWITCHING
+   ONLY ONE VERSION
+========================================================= */
+
+function switchInvoiceTab(tabId, button = null) {
+
+  const tabs =
+    document.querySelectorAll(
+      ".invoice-tab-content"
+    );
+
+  const buttons =
+    document.querySelectorAll(
+      ".invoice-tab"
+    );
+
+
+  /* Hide all sections */
+
+  tabs.forEach(tab => {
+
+    tab.classList.remove("active");
+
+  });
+
+
+  /* Remove active button */
+
+  buttons.forEach(btn => {
+
+    btn.classList.remove("active");
+
+  });
+
+
+  /* Find requested section */
+
+  const selectedTab =
+    document.getElementById(tabId);
+
+
+  if (!selectedTab) {
+
+    console.warn(
+      "Invoice tab not found:",
+      tabId
+    );
+
+    return;
+
+  }
+
+
+  /* Show selected section */
+
+  selectedTab.classList.add("active");
+
+
+  /* Direct click */
+
+  if (button) {
+
+    button.classList.add("active");
+
+    return;
+
+  }
+
+
+  /* Find matching button */
+
+  const matchingButton =
+    [...buttons].find(btn => {
+
+      const onclick =
+        btn.getAttribute("onclick");
+
+      return onclick &&
+        onclick.includes(
+          `'${tabId}'`
+        );
+
     });
-  });
+
+
+  if (matchingButton) {
+
+    matchingButton.classList.add(
+      "active"
+    );
+
+  }
+
 }
 
-if(activitySelect){
-  activitySelect.addEventListener('change', e => renderActivityChart(e.target.value));
-  renderActivityChart(activitySelect.value);
+
+/* =========================================================
+   INVOICE VALIDATION HELPERS
+========================================================= */
+
+function isValidEmail(value) {
+
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
 }
 
-const merchantPage=document.getElementById('merchantPage');
-const dashboardWrap=document.querySelector('.wrap');
-const dashboardSections=[...dashboardWrap.children].filter(el=>el.id!=='merchantPage' && !el.classList.contains('footer'));
-function pageButton(label, action, cls='btn primary'){return `<button class="${cls}" onclick="toast('${action} opened')">${label}</button>`}
-function tablePage(title,sub,heads,rows=[],action=''){return `<div class="page-head"><div><div class="eyebrow">MERCHANT WORKSPACE</div><h1>${title}</h1><p class="page-sub">${sub}</p></div><div class="actions"><button class="btn" onclick="toast('Search opened')">⌕ Search</button>${action?pageButton(action,action):''}</div></div><div class="merchant-table"><div class="merchant-table-head"><div><h2>${title}</h2><p>${sub}</p></div><button class="btn" onclick="toast('Export started')">↓ Export</button></div><div style="overflow:auto"><table><thead><tr>${heads.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.length?rows.map(r=>`<tr>${r.map((v,i)=>`<td>${i===r.length-1?`<span class="status ${/Pending|Processing/.test(v)?'pending':/Failed|Incomplete/.test(v)?'danger':''}">${v}</span>`:v}</td>`).join('')}</tr>`).join(''):`<tr><td colspan="${heads.length}"><div class="empty-state"><div class="empty-icon">▤</div><strong>No data yet</strong><span>This demo keeps the merchant workflow from the previous Quidly version while following this new dashboard's layout.</span>${action?pageButton(action,action):''}</div></td></tr>`}</tbody></table></div></div>`}
-function settingsPage(title,sub,items){return `<div class="page-head"><div><div class="eyebrow">SETTINGS</div><h1>${title}</h1><p class="page-sub">${sub}</p></div><div class="actions"><button class="btn primary" onclick="toast('Changes saved in demo mode')">Save changes</button></div></div><div class="merchant-grid">${items.map((x,i)=>`<div class="merchant-card"><h3>${x}</h3><p>${title==='Compliance'?'Verification status and required documents are shown here.':title==='Webhook'&&x==='Signing Secret'?'Generate and rotate the secret used to verify delivery signatures.':'Configure and monitor this part of your Quidly merchant workspace.'}</p><button class="btn" onclick="toast('${x} opened')">Open ${x} →</button></div>`).join('')}</div>`}
-function contentFor(id){
-const pages={
-'invoices':tablePage('Invoices','Create, send and monitor payment invoices.',['Invoice ID','Customer','Amount','Due date','Status'],[['INV-1001','Acme Ltd','₦250,000','28 Aug','Pending'],['INV-1000','Nova Foods','₦120,000','20 Aug','Paid']],'＋ New invoice'),
-'creditlist':tablePage('Creditlist','Manage customers and credit/payment records.',['Customer','Reference','Amount','Date','Status'],[['Acme Ltd','CR-204','₦200,000','18 Aug','Approved'],['Ola Stores','CR-203','₦85,000','17 Aug','Pending']],'＋ Add credit'),
-'transactions':tablePage('Transactions','Payment activity across your Quidly merchant account.',['Transaction ID','Amount','Customer','Date','Status'],[['TX-20481','₦180,000','Acme Ltd','18 Aug','Successful'],['TX-20480','₦75,500','Ola Stores','18 Aug','Pending']]),
-'refunds':tablePage('Refunds','Review and manage customer refunds.',['Refund ID','Payment ID','Amount','Reason','Date','Status'],[['RF-091','TX-20412','₦40,000','Customer request','17 Aug','Completed']],'＋ Refund'),
-'subaccounts':tablePage('Sub-accounts','Create and monitor connected sub-accounts.',['Sub-account','Reference','Settled','Awaiting','Status'],[['Acme Ltd','SUB-01','₦420,000','₦40,000','Active'],['Ola Stores','SUB-02','₦260,000','₦80,000','Active']],'＋ Add subaccount'),
-'banks':`<div class="page-head"><div><div class="eyebrow">ACCOUNTS</div><h1>Bank Accounts</h1><p class="page-sub">Manage the bank accounts used for merchant settlements.</p></div><div class="actions"><button class="btn primary" onclick="toast('New bank account opened')">＋ New bank account</button></div></div><div class="merchant-card"><h2>Settlement bank</h2><div class="detail-row"><b>Bank</b><span>Demo Bank</span></div><div class="detail-row"><b>Account</b><span>•••• 2041</span></div><div class="detail-row"><b>Account name</b><span>Pullmids</span></div><div class="detail-row"><b>Status</b><span class="status">Active</span></div></div>`,
-'settlement':tablePage('Settlements','Track amounts moving from Quidly to your bank account.',['Settlement ID','Amount','Date','Bank name','Account number','Status'],[['ST-4432','₦420,000','18 Aug','Demo Bank','•••• 2041','Processing']]),
-'compliance':settingsPage('Compliance','Monitor company and business-owner verification.',['Company Registration','Business Owner','BVN','Photo ID','Proof of Address']),
-'api-keys':settingsPage('API Keys','Create and manage public API keys and usage.',['API Public Keys','Usage Statistics','Transaction Count','Transaction Value']),
-'profile':`<div class="page-head"><div><div class="eyebrow">SETTINGS</div><h1>Profile</h1><p class="page-sub">Manage your merchant profile, linked merchants and users.</p></div><div class="actions"><button class="btn primary" onclick="toast('Profile changes saved')">Save changes</button></div></div><div class="merchant-grid"><div class="merchant-card"><div class="avatar" style="margin-bottom:10px">PU</div><h2>Pullmids</h2><p>Admin · Merchant account</p><div class="detail-row"><b>KYC status</b><span class="status pending">Pending</span></div><div class="detail-row"><b>Merchant ID</b><span>merchant-demo-0ad54371</span></div><div class="detail-row"><b>Email</b><span>merchant@example.com</span></div></div><div class="merchant-card"><h2>Linked Merchants</h2><p>Manage connected merchant workspaces.</p><div class="detail-row"><b>Pullmids</b><span class="status pending">KYC Pending</span></div><button class="btn" onclick="toast('Manage users opened')">Manage Users</button></div></div>`,
-'webhook':`<div class="page-head"><div><div class="eyebrow">SETTINGS</div><h1>Webhook</h1><p class="page-sub">Receive signed server notifications when payments succeed, fail, expire or reverse.</p></div><div class="actions"><button class="btn primary" onclick="toast('Webhook settings saved')">Save changes</button></div></div><div class="merchant-grid"><div class="merchant-card"><h2>Webhook URL</h2><p>Endpoint Quidly should notify when merchant events occur.</p><input class="input" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px" placeholder="https://your-server.example.com/webhooks/quidly"><div style="margin-top:10px"><button class="btn" onclick="toast('Webhook URL saved')">Save URL</button></div></div><div class="merchant-card"><h2>Signing Secret</h2><p>Used to verify delivery signatures.</p><div class="notice">No secret generated in this demo. Generate one and store it securely.</div><div style="margin-top:10px"><button class="btn primary" onclick="toast('Signing secret generated')">Generate secret</button></div></div></div><div class="merchant-card" style="margin-top:14px"><h2>Delivery verification</h2><p>Verify the X-Quidly-Signature header using HMAC-SHA512 and your signing secret.</p><pre class="code">const expected = crypto.createHmac('sha512', process.env.QUIDLY_WEBHOOK_SECRET)\n  .update(req.rawBody).digest('hex');</pre></div>`,
-'documentation':`<div class="page-head"><div><div class="eyebrow">QUidly</div><h1>Documentation</h1><p class="page-sub">Developer and merchant guidance for integrating and operating Quidly.</p></div></div><div class="merchant-grid">${['Payments','Transactions','Webhooks','API Keys','Account setup'].map(x=>`<div class="merchant-card"><h2>${x}</h2><p>Reference material and implementation guidance for ${x.toLowerCase()}.</p><button class="btn" onclick="toast('${x} documentation opened')">Open guide →</button></div>`).join('')}</div>`
-};return pages[id]||''}
-function setNavActive(id){document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.nav-group').forEach(g=>g.classList.remove('open'));if(id==='dashboard'){document.querySelector('.nav button[onclick="go(\'dashboard\')"]').classList.add('active');return}const b=[...document.querySelectorAll('.subnav button')].find(x=>x.getAttribute('onclick')===`go('${id}')`);if(b){b.classList.add('active');b.closest('.nav-group').classList.add('open')}}
-function go(id){
- if(id==='dashboard'){merchantPage.style.display='none';dashboardSections.forEach(x=>x.style.display='');document.querySelector('.head h1').textContent='Dashboard';document.querySelector('.crumb span').textContent='Dashboard';setNavActive('dashboard');window.scrollTo({top:0,behavior:'smooth'});return}
- dashboardSections.forEach(x=>x.style.display='none');merchantPage.style.display='block';merchantPage.innerHTML=contentFor(id);setNavActive(id);const names={'api-keys':'API Keys','subaccounts':'Sub-accounts','creditlist':'Creditlist','invoices':'Invoices','transactions':'Transactions','refunds':'Refunds','banks':'Bank Accounts','settlement':'Settlements','compliance':'Compliance','profile':'Profile','webhook':'Webhook','documentation':'Documentation'};document.querySelector('.crumb span').textContent=names[id]||id;window.scrollTo({top:0,behavior:'smooth'});if(window.innerWidth<=780)toggleSidebar()}
+function positiveNumber(value) {
 
-function toggleNav(id){
-  const current=document.getElementById(id);
-  document.querySelectorAll('.nav-group').forEach(group=>{
-    if(group!==current) group.classList.remove('open');
-  });
-  current.classList.toggle('open');
+  const number = Number(value);
+
+  return Number.isFinite(number) && number > 0
+    ? number
+    : 0;
+
 }
 
-function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.opacity='1';t.style.transform='translateY(0)';clearTimeout(window.tt);window.tt=setTimeout(()=>{t.style.opacity='0';t.style.transform='translateY(8px)'},1800)}
-const profileMenuBtn = document.getElementById('profileMenuBtn');
-const profileMenu = document.getElementById('profileMenu');
 
-if (profileMenuBtn && profileMenu) {
-  profileMenuBtn.addEventListener('click', function(event) {
-    event.stopPropagation();
-    profileMenu.classList.toggle('open');
-  });
+/* =========================================================
+   CREATE QUICK INVOICE
+========================================================= */
 
-  document.addEventListener('click', function() {
-    profileMenu.classList.remove('open');
-  });
+function createQuickInvoice() {
+
+  const customer =
+    document.getElementById(
+      "quickCustomerName"
+    )?.value.trim();
+
+  const email =
+    document.getElementById(
+      "quickCustomerEmail"
+    )?.value.trim();
+
+  const amount =
+    document.getElementById(
+      "quickAmount"
+    )?.value;
+
+  const dueDate =
+    document.getElementById(
+      "quickDueDate"
+    )?.value;
+
+
+  if (!customer || !email || !isValidEmail(email) || !positiveNumber(amount) || !dueDate) {
+
+    toast(
+      "Please complete all fields"
+    );
+
+    return;
+
+  }
+
+
+  toast(
+    "Quick invoice created"
+  );
+
+
+  switchInvoiceTab(
+    "invoice-list"
+  );
+
 }
+
+
+/* =========================================================
+   CREATE FULL INVOICE
+========================================================= */
+
+function createFullInvoice() {
+
+  const customer =
+    document.getElementById(
+      "fullCustomerName"
+    )?.value.trim();
+
+  const email =
+    document.getElementById(
+      "fullCustomerEmail"
+    )?.value.trim();
+
+  const title =
+    document.getElementById(
+      "fullInvoiceTitle"
+    )?.value.trim();
+
+  const description =
+    document.getElementById(
+      "fullDescription"
+    )?.value.trim();
+
+  const quantity =
+    document.getElementById(
+      "fullQuantity"
+    )?.value;
+
+  const amount =
+    document.getElementById(
+      "fullAmount"
+    )?.value;
+
+
+  if (
+    !customer ||
+    !email ||
+    !isValidEmail(email) ||
+    !title ||
+    !description ||
+    Number(quantity) < 1 ||
+    !positiveNumber(amount)
+  ) {
+
+    toast(
+      "Please complete all fields"
+    );
+
+    return;
+
+  }
+
+
+  toast(
+    "Full invoice created"
+  );
+
+
+  switchInvoiceTab(
+    "invoice-list"
+  );
+
+}
+
+
+/* =========================================================
+   CREATE PAYNOW WITH SPLIT
+========================================================= */
+
+function createPayNowSplit() {
+
+  const customer =
+    document.getElementById(
+      "splitCustomerName"
+    )?.value.trim();
+
+  const email =
+    document.getElementById(
+      "splitCustomerEmail"
+    )?.value.trim();
+
+  const total =
+    positiveNumber(
+      document.getElementById(
+        "splitTotalAmount"
+      )?.value
+    );
+
+  const recipient =
+    document.getElementById(
+      "splitRecipient"
+    )?.value.trim();
+
+  const splitAmount =
+    positiveNumber(
+      document.getElementById(
+        "splitAmount"
+      )?.value
+    );
+
+  const reference =
+    document.getElementById(
+      "splitReference"
+    )?.value.trim();
+
+
+  if (
+    !customer ||
+    !email ||
+    !isValidEmail(email) ||
+    !total ||
+    !recipient ||
+    !splitAmount
+  ) {
+
+    toast(
+      "Please complete all required fields"
+    );
+
+    return;
+
+  }
+
+
+  if (splitAmount > total) {
+
+    toast(
+      "Split amount cannot exceed total amount"
+    );
+
+    return;
+
+  }
+
+
+  toast(
+    reference
+      ? "PayNow with Split created"
+      : "PayNow payment created"
+  );
+
+
+  switchInvoiceTab(
+    "invoice-list"
+  );
+
+}
+
+
+/* =========================================================
+   ALL PAGE CONTENT
+========================================================= */
+
+function contentFor(id) {
+
+  const pages = {
+
+    /* INVOICES */
+
+    invoices:
+      invoiceWorkspace(),
+
+
+    /* CREDITLIST */
+
+    creditlist:
+      tablePage(
+        "Creditlist",
+        "Manage customers and credit/payment records.",
+        [
+          "Customer",
+          "Reference",
+          "Amount",
+          "Date",
+          "Status"
+        ],
+        [
+          [
+            "Acme Ltd",
+            "CR-204",
+            "₦200,000",
+            "18 Aug",
+            "Approved"
+          ],
+          [
+            "Ola Stores",
+            "CR-203",
+            "₦85,000",
+            "17 Aug",
+            "Pending"
+          ]
+        ],
+        "＋ Add credit"
+      ),
+
+
+    /* TRANSACTIONS */
+
+    transactions:
+      tablePage(
+        "Transactions",
+        "Payment activity across your Quidly merchant account.",
+        [
+          "Transaction ID",
+          "Amount",
+          "Customer",
+          "Date",
+          "Status"
+        ],
+        [
+          [
+            "TX-20481",
+            "₦180,000",
+            "Acme Ltd",
+            "18 Aug",
+            "Successful"
+          ],
+          [
+            "TX-20480",
+            "₦75,500",
+            "Ola Stores",
+            "18 Aug",
+            "Pending"
+          ]
+        ]
+      ),
+
+
+    /* REFUNDS */
+
+    refunds:
+      tablePage(
+        "Refunds",
+        "Review and manage customer refunds.",
+        [
+          "Refund ID",
+          "Payment ID",
+          "Amount",
+          "Reason",
+          "Date",
+          "Status"
+        ],
+        [
+          [
+            "RF-091",
+            "TX-20412",
+            "₦40,000",
+            "Customer request",
+            "17 Aug",
+            "Completed"
+          ]
+        ],
+        "＋ Refund"
+      ),
+
+
+    /* SUB ACCOUNTS */
+
+    subaccounts:
+      tablePage(
+        "Sub-accounts",
+        "Create and monitor connected sub-accounts.",
+        [
+          "Sub-account",
+          "Reference",
+          "Settled",
+          "Awaiting",
+          "Status"
+        ],
+        [
+          [
+            "Acme Ltd",
+            "SUB-01",
+            "₦420,000",
+            "₦40,000",
+            "Active"
+          ],
+          [
+            "Ola Stores",
+            "SUB-02",
+            "₦260,000",
+            "₦80,000",
+            "Active"
+          ]
+        ],
+        "＋ Add subaccount"
+      ),
+
+
+    /* BANK ACCOUNTS */
+
+    banks: `
+
+      <div class="page-head">
+
+        <div>
+
+          <div class="eyebrow">
+            ACCOUNTS
+          </div>
+
+          <h1>
+            Bank Accounts
+          </h1>
+
+          <p class="page-sub">
+            Manage the bank accounts used for merchant settlements.
+          </p>
+
+        </div>
+
+        <div class="actions">
+
+          <button
+            class="btn primary"
+            onclick="toast('New bank account opened')">
+            ＋ New bank account
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="merchant-card">
+
+        <h2>
+          Settlement bank
+        </h2>
+
+        <div class="detail-row">
+          <b>Bank</b>
+          <span>Demo Bank</span>
+        </div>
+
+        <div class="detail-row">
+          <b>Account</b>
+          <span>•••• 2041</span>
+        </div>
+
+        <div class="detail-row">
+          <b>Account name</b>
+          <span>Pullmids</span>
+        </div>
+
+        <div class="detail-row">
+          <b>Status</b>
+          <span class="status">
+            Active
+          </span>
+        </div>
+
+      </div>
+
+    `,
+
+
+    /* SETTLEMENTS */
+
+    settlement:
+      tablePage(
+        "Settlements",
+        "Track amounts moving from Quidly to your bank account.",
+        [
+          "Settlement ID",
+          "Amount",
+          "Date",
+          "Bank name",
+          "Account number",
+          "Status"
+        ],
+        [
+          [
+            "ST-4432",
+            "₦420,000",
+            "18 Aug",
+            "Demo Bank",
+            "•••• 2041",
+            "Processing"
+          ]
+        ]
+      ),
+
+
+    /* COMPLIANCE */
+
+    compliance:
+      settingsPage(
+        "Compliance",
+        "Monitor company and business-owner verification.",
+        [
+          "Company Registration",
+          "Business Owner",
+          "BVN",
+          "Photo ID",
+          "Proof of Address"
+        ]
+      ),
+
+
+    /* API KEYS */
+
+    "api-keys":
+      settingsPage(
+        "API Keys",
+        "Create and manage public API keys and usage.",
+        [
+          "API Public Keys",
+          "Usage Statistics",
+          "Transaction Count",
+          "Transaction Value"
+        ]
+      ),
+
+
+    /* PROFILE */
+
+    profile: `
+
+      <div class="page-head">
+
+        <div>
+
+          <div class="eyebrow">
+            SETTINGS
+          </div>
+
+          <h1>
+            Profile
+          </h1>
+
+          <p class="page-sub">
+            Manage your merchant profile, linked merchants and users.
+          </p>
+
+        </div>
+
+        <div class="actions">
+
+          <button
+            class="btn primary"
+            onclick="toast('Profile changes saved')">
+            Save changes
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="merchant-grid">
+
+        <div class="merchant-card">
+
+          <div
+            class="avatar"
+            style="margin-bottom:10px">
+            PU
+          </div>
+
+          <h2>
+            Pullmids
+          </h2>
+
+          <p>
+            Admin · Merchant account
+          </p>
+
+          <div class="detail-row">
+
+            <b>
+              KYC status
+            </b>
+
+            <span class="status pending">
+              Pending
+            </span>
+
+          </div>
+
+          <div class="detail-row">
+
+            <b>
+              Merchant ID
+            </b>
+
+            <span>
+              merchant-demo-0ad54371
+            </span>
+
+          </div>
+
+          <div class="detail-row">
+
+            <b>
+              Email
+            </b>
+
+            <span>
+              merchant@example.com
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="merchant-card">
+
+          <h2>
+            Linked Merchants
+          </h2>
+
+          <p>
+            Manage connected merchant workspaces.
+          </p>
+
+          <div class="detail-row">
+
+            <b>
+              Pullmids
+            </b>
+
+            <span class="status pending">
+              KYC Pending
+            </span>
+
+          </div>
+
+          <button
+            class="btn"
+            onclick="toast('Manage users opened')">
+            Manage Users
+          </button>
+
+        </div>
+
+      </div>
+
+    `,
+
+
+    /* WEBHOOK */
+
+    webhook: `
+
+      <div class="page-head">
+
+        <div>
+
+          <div class="eyebrow">
+            SETTINGS
+          </div>
+
+          <h1>
+            Webhook
+          </h1>
+
+          <p class="page-sub">
+            Receive signed server notifications when payments succeed, fail, expire or reverse.
+          </p>
+
+        </div>
+
+        <div class="actions">
+
+          <button
+            class="btn primary"
+            onclick="toast('Webhook settings saved')">
+            Save changes
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="merchant-grid">
+
+        <div class="merchant-card">
+
+          <h2>
+            Webhook URL
+          </h2>
+
+          <p>
+            Endpoint Quidly should notify when merchant events occur.
+          </p>
+
+          <input
+            class="input"
+            style="
+              width:100%;
+              padding:10px;
+              border:1px solid var(--line);
+              border-radius:8px;
+            "
+            placeholder="https://your-server.example.com/webhooks/quidly">
+
+          <div style="margin-top:10px">
+
+            <button
+              class="btn"
+              onclick="toast('Webhook URL saved')">
+              Save URL
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="merchant-card">
+
+          <h2>
+            Signing Secret
+          </h2>
+
+          <p>
+            Used to verify delivery signatures.
+          </p>
+
+          <div class="notice">
+            No secret generated in this demo. Generate one and store it securely.
+          </div>
+
+          <div style="margin-top:10px">
+
+            <button
+              class="btn primary"
+              onclick="toast('Signing secret generated')">
+              Generate secret
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="merchant-card"
+        style="margin-top:14px">
+
+        <h2>
+          Delivery verification
+        </h2>
+
+        <p>
+          Verify the X-Quidly-Signature header using HMAC-SHA512 and your signing secret.
+        </p>
+
+        <pre class="code">const expected = crypto.createHmac('sha512', process.env.QUIDLY_WEBHOOK_SECRET)
+  .update(req.rawBody).digest('hex');</pre>
+
+      </div>
+
+    `,
+
+
+    /* DOCUMENTATION */
+
+    documentation: `
+
+      <div class="page-head">
+
+        <div>
+
+          <div class="eyebrow">
+            QUIDLY
+          </div>
+
+          <h1>
+            Documentation
+          </h1>
+
+          <p class="page-sub">
+            Developer and merchant guidance for integrating and operating Quidly.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="merchant-grid">
+
+        ${
+          [
+            "Payments",
+            "Transactions",
+            "Webhooks",
+            "API Keys",
+            "Account setup"
+          ]
+          .map(item => {
+
+            return `
+
+              <div class="merchant-card">
+
+                <h2>
+                  ${item}
+                </h2>
+
+                <p>
+                  Reference material and implementation guidance for ${item.toLowerCase()}.
+                </p>
+
+                <button
+                  class="btn"
+                  onclick="toast('${item} documentation opened')">
+                  Open guide →
+                </button>
+
+              </div>
+
+            `;
+
+          })
+          .join("")
+        }
+
+      </div>
+
+    `
+
+  };
+
+  return pages[id] || "";
+
+}
+
+
+/* =========================================================
+   NAVIGATION ACTIVE STATE
+========================================================= */
+
+function setNavActive(id) {
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(button => {
+
+      button.classList.remove("active");
+
+    });
+
+
+  document
+    .querySelectorAll(".nav-group")
+    .forEach(group => {
+
+      group.classList.remove("open");
+
+    });
+
+
+  if (id === "dashboard") {
+
+    const dashboardButton =
+      document.querySelector(
+        `.nav button[onclick="go('dashboard')"]`
+      );
+
+    if (dashboardButton) {
+
+      dashboardButton.classList.add(
+        "active"
+      );
+
+    }
+
+    return;
+
+  }
+
+
+  const button =
+    [...document.querySelectorAll(".subnav button")]
+      .find(element => {
+
+        return (
+          element.getAttribute("onclick") ===
+          `go('${id}')`
+        );
+
+      });
+
+
+  if (button) {
+
+    button.classList.add("active");
+
+    const group =
+      button.closest(".nav-group");
+
+    if (group) {
+
+      group.classList.add("open");
+
+    }
+
+  }
+
+}
+
+
+/* =========================================================
+   MAIN NAVIGATION
+========================================================= */
+
+function go(id) {
+
+  /* DASHBOARD */
+
+  if (id === "dashboard") {
+
+    if (merchantPage) {
+
+      merchantPage.style.display =
+        "none";
+
+    }
+
+
+    dashboardSections
+      .forEach(element => {
+
+        element.style.display = "";
+
+      });
+
+
+    const heading =
+      document.querySelector(".head h1");
+
+    if (heading) {
+
+      heading.textContent =
+        "Dashboard";
+
+    }
+
+
+    const breadcrumb =
+      document.querySelector(".crumb span");
+
+    if (breadcrumb) {
+
+      breadcrumb.textContent =
+        "Dashboard";
+
+    }
+
+
+    setNavActive("dashboard");
+
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+
+    return;
+
+  }
+
+
+  /* OTHER PAGES */
+
+  dashboardSections
+    .forEach(element => {
+
+      element.style.display =
+        "none";
+
+    });
+
+
+  if (!merchantPage) {
+
+    console.error(
+      "merchantPage element not found."
+    );
+
+    return;
+
+  }
+
+
+  merchantPage.style.display =
+    "block";
+
+
+  merchantPage.innerHTML =
+    contentFor(id);
+
+
+  setNavActive(id);
+
+
+  const names = {
+
+    "api-keys": "API Keys",
+    "subaccounts": "Sub-accounts",
+    "creditlist": "Creditlist",
+    "invoices": "Invoices",
+    "transactions": "Transactions",
+    "refunds": "Refunds",
+    "banks": "Bank Accounts",
+    "settlement": "Settlements",
+    "compliance": "Compliance",
+    "profile": "Profile",
+    "webhook": "Webhook",
+    "documentation": "Documentation"
+
+  };
+
+
+  const breadcrumb =
+    document.querySelector(".crumb span");
+
+  if (breadcrumb) {
+
+    breadcrumb.textContent =
+      names[id] || id;
+
+  }
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+
+  /* MOBILE SIDEBAR */
+
+  if (window.innerWidth <= 780) {
+
+    const sidebar =
+      document.getElementById("sidebar");
+
+    if (
+      sidebar &&
+      sidebar.classList.contains("open")
+    ) {
+
+      sidebar.classList.remove(
+        "open"
+      );
+
+    }
+
+  }
+
+}
+
+
+/* =========================================================
+   SIDEBAR GROUPS
+========================================================= */
+
+function toggleNav(id) {
+
+  const current =
+    document.getElementById(id);
+
+  if (!current) {
+    return;
+  }
+
+
+  document
+    .querySelectorAll(".nav-group")
+    .forEach(group => {
+
+      if (group !== current) {
+
+        group.classList.remove("open");
+
+      }
+
+    });
+
+
+  current.classList.toggle(
+    "open"
+  );
+
+}
+
+
+/* =========================================================
+   MOBILE SIDEBAR
+========================================================= */
+
+function toggleSidebar() {
+
+  const sidebar =
+    document.getElementById("sidebar");
+
+  if (!sidebar) {
+    return;
+  }
+
+  sidebar.classList.toggle(
+    "open"
+  );
+
+}
+
+
+/* =========================================================
+   PROFILE MENU
+========================================================= */
+
+const profileMenuBtn =
+  document.getElementById(
+    "profileMenuBtn"
+  );
+
+const profileMenu =
+  document.getElementById(
+    "profileMenu"
+  );
+
+
+if (
+  profileMenuBtn &&
+  profileMenu
+) {
+
+  profileMenuBtn.addEventListener(
+    "click",
+    event => {
+
+      event.stopPropagation();
+
+      profileMenu.classList.toggle(
+        "open"
+      );
+
+    }
+  );
+
+
+  document.addEventListener(
+    "click",
+    () => {
+
+      profileMenu.classList.remove(
+        "open"
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
 
 function openProfile() {
-  profileMenu.classList.remove('open');
 
-  const profileButton = document.querySelector('[data-page="profile"]');
+  if (profileMenu) {
 
-  if (profileButton) {
-    profileButton.click();
+    profileMenu.classList.remove(
+      "open"
+    );
+
   }
+
+  go("profile");
+
 }
+
+
+/* =========================================================
+   ACCOUNT SETTINGS
+========================================================= */
 
 function openAccountSettings() {
-  profileMenu.classList.remove('open');
 
-  const settingsButton = document.querySelector('.nav-group > .nav-trigger');
+  if (profileMenu) {
 
-  if (settingsButton) {
-    settingsButton.click();
+    profileMenu.classList.remove(
+      "open"
+    );
+
   }
+
+
+  const settingsGroup =
+    document.getElementById("settingsGroup");
+
+  if (settingsGroup) {
+
+    settingsGroup.classList.add("open");
+
+    const settingsButton =
+      settingsGroup.querySelector(".nav-trigger");
+
+    if (settingsButton) {
+      settingsButton.setAttribute("aria-expanded", "true");
+    }
+
+  }
+
 }
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
 
 function logout() {
-  window.location.href = 'quidly_authentication_demo_v8_card_inside_screen.html';
+
+  window.location.href =
+    "quidly_authentication_demo_v8_card_inside_screen.html";
+
 }
+
+
+/* =========================================================
+   ESC KEY
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (event.key !== "Escape") {
+      return;
+    }
+
+
+    if (profileMenu) {
+
+      profileMenu.classList.remove(
+        "open"
+      );
+
+    }
+
+
+    const sidebar =
+      document.getElementById(
+        "sidebar"
+      );
+
+
+    if (
+      sidebar &&
+      window.innerWidth <= 780
+    ) {
+
+      sidebar.classList.remove(
+        "open"
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   INITIALISE
+========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    setNavActive(
+      "dashboard"
+    );
+
+
+    const select =
+      document.querySelector(".select");
+
+    if (select) {
+
+      renderActivityChart(
+        select.value
+      );
+
+    }
+
+  }
+);
+
 </script>
 </body>
 </html>
