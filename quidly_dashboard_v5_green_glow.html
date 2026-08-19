@@ -155,17 +155,118 @@ td strong{color:var(--ink)}
 .merchant-page{display:none}.merchant-page .page-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:14px}.merchant-page .page-head h1{margin:4px 0;font-size:23px}.merchant-page .page-sub{margin:0;color:var(--muted);font-size:10px}.merchant-page .eyebrow{font-size:9px;letter-spacing:.12em;color:var(--green);font-weight:800}.merchant-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.merchant-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}.merchant-card h2{font-size:13px;margin:0 0 6px}.merchant-card h3{font-size:12px;margin:0 0 5px}.merchant-card p{font-size:10px;color:var(--muted);line-height:1.55}.merchant-table{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}.merchant-table-head{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}.merchant-table-head h2{font-size:13px;margin:0}.merchant-table-head p{font-size:9px;color:var(--muted);margin:4px 0 0}.merchant-table table{width:100%;border-collapse:collapse;min-width:650px}.merchant-table th,.merchant-table td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;font-size:9px}.merchant-table th{color:var(--muted);font-weight:700;background:#fbfcfe}.status{display:inline-block;padding:4px 7px;border-radius:999px;font-size:8px;font-weight:800;background:#ecfdf3;color:#18794e}.status.pending{background:#fffaeb;color:#b54708}.status.danger{background:#fef3f2;color:#b42318}.empty-state{text-align:center;padding:38px 20px;color:var(--muted)}.empty-state .empty-icon{margin:0 auto 10px;width:38px;height:38px;border-radius:10px;background:#eef6ff;color:var(--blue);display:grid;place-items:center}.empty-state strong{display:block;color:var(--ink);font-size:11px}.empty-state span{display:block;font-size:9px;margin:5px auto 13px;max-width:400px}.mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.mini-stat{background:#f8fafc;border:1px solid var(--line);padding:12px;border-radius:10px}.mini-stat b{display:block;font-size:15px;margin-top:4px}.mini-stat span{font-size:8px;color:var(--muted)}.detail-row{display:flex;justify-content:space-between;gap:15px;padding:10px 0;border-bottom:1px solid var(--line);font-size:9px}.detail-row span{color:var(--muted)}.code{background:#101828;color:#e6edf3;border-radius:10px;padding:14px;overflow:auto;font-size:9px;line-height:1.55}.notice{padding:11px;border:1px solid #fedf89;background:#fffaeb;border-radius:9px;color:#7a4d00;font-size:9px;margin-top:10px}
 @media(max-width:900px){.merchant-grid{grid-template-columns:1fr}.mini-grid{grid-template-columns:1fr 1fr}.merchant-page .page-head{flex-direction:column}.merchant-page .page-head .actions{width:100%}}
 @media(max-width:540px){.mini-grid{grid-template-columns:1fr}.merchant-table-head{align-items:flex-start;flex-direction:column}}
+.profile {
+  position: relative;
+  cursor: pointer;
+}
+
+.profile-menu-btn {
+  margin-left: auto;
+  border: 0;
+  background: transparent;
+  color: #98a2b3;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 7px;
+}
+
+.profile-menu-btn:hover {
+  background: #f5f7fb;
+  color: var(--ink);
+}
+
+.profile-menu {
+  position: absolute;
+  left: calc(100% + 10px);
+  bottom: 0;
+  width: 190px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 7px;
+  box-shadow: 0 14px 35px rgba(16,24,40,.14);
+  display: none;
+  z-index: 100;
+}
+
+.profile-menu.open {
+  display: grid;
+  gap: 3px;
+}
+
+.profile-menu button {
+  border: 0;
+  background: transparent;
+  text-align: left;
+  padding: 9px 10px;
+  border-radius: 8px;
+  color: #667085;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.profile-menu button:hover {
+  background: #f5f7fb;
+  color: var(--ink);
+}
+
+.profile-menu .logout-item {
+  color: #d92d20;
+}
+
+.profile-menu .logout-item:hover {
+  background: #fff1f0;
+  color: #b42318;
+}
+
+.profile-divider {
+  height: 1px;
+  background: var(--line);
+  margin: 4px 2px;
+}
+
+@media(max-width:760px) {
+  .profile-menu {
+    left: 0;
+    bottom: calc(100% + 8px);
+  }
+}
 </style>
 </head>
 <body>
 <div class="app">
 <aside class="sidebar" id="sidebar">
   <div class="brand"><div class="logo"><span class="q">qui</span><span class="id">dly</span></div></div>
-  <div class="profile">
-    <div class="avatar">PU</div>
-    <div><strong>Pullmids</strong><small>Merchant account</small></div>
+  <div class="profile" id="merchantProfile">
+  <div class="avatar">PU</div>
+
+  <div class="profile-info">
+    <strong>Pullmids</strong>
+    <small>Merchant account</small>
   </div>
 
+  <button class="profile-menu-btn" id="profileMenuBtn" type="button" aria-label="Open profile menu">
+    ⋮
+  </button>
+
+  <div class="profile-menu" id="profileMenu">
+    <button type="button" onclick="openProfile()">
+      👤 Profile
+    </button>
+
+    <button type="button" onclick="openAccountSettings()">
+      ⚙️ Account settings
+    </button>
+
+    <div class="profile-divider"></div>
+
+    <button type="button" class="logout-item" onclick="logout()">
+      ↪ Log out
+    </button>
+  </div>
+</div>
   <div class="label">WORKSPACE</div>
   <nav class="nav">
     <button class="active" onclick="go('dashboard')"><span class="icon">⌂</span>Dashboard</button>
@@ -474,6 +575,43 @@ function toggleNav(id){
 
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.opacity='1';t.style.transform='translateY(0)';clearTimeout(window.tt);window.tt=setTimeout(()=>{t.style.opacity='0';t.style.transform='translateY(8px)'},1800)}
+const profileMenuBtn = document.getElementById('profileMenuBtn');
+const profileMenu = document.getElementById('profileMenu');
+
+if (profileMenuBtn && profileMenu) {
+  profileMenuBtn.addEventListener('click', function(event) {
+    event.stopPropagation();
+    profileMenu.classList.toggle('open');
+  });
+
+  document.addEventListener('click', function() {
+    profileMenu.classList.remove('open');
+  });
+}
+
+function openProfile() {
+  profileMenu.classList.remove('open');
+
+  const profileButton = document.querySelector('[data-page="profile"]');
+
+  if (profileButton) {
+    profileButton.click();
+  }
+}
+
+function openAccountSettings() {
+  profileMenu.classList.remove('open');
+
+  const settingsButton = document.querySelector('.nav-group > .nav-trigger');
+
+  if (settingsButton) {
+    settingsButton.click();
+  }
+}
+
+function logout() {
+  window.location.href = 'quidly_authentication_demo_v8_card_inside_screen.html';
+}
 </script>
 </body>
 </html>
