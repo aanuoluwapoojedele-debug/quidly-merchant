@@ -644,12 +644,16 @@
     });
   });
 
-  document.getElementById('loginBtn').onclick = ()=>{
-    const email = document.getElementById('loginEmail').value.trim();
-    const password = document.getElementById('loginPassword').value.trim();
-    if(!email || !password) return message('Enter your email address and password to continue.');
-    message('Demo mode: sign-in is ready for API integration.', 'success');
-  };
+ document.getElementById('loginBtn').onclick = ()=>{
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value.trim();
+
+  if(!email || !password){
+    return message('Enter your email address and password to continue.');
+  }
+
+  window.location.href = 'quidly_dashboard_v5_green_glow.html';
+};
 
   document.getElementById('signupBtn').onclick = ()=>{
     const email = document.getElementById('signupEmail').value.trim();
