@@ -437,7 +437,7 @@
           <label class="checkbox"><input type="checkbox"> Keep me signed in</label>
         </div>
 
-        <button class="primary" id="loginBtn" type="button">Sign in</button>
+        <button class="primary" id="loginBtn" type="button" onclick="window.location.href='quidly_dashboard_v5_green_glow.html'">Sign in</button>
 
         <div class="divider">OR</div>
         <button class="secondary" type="button" id="demoGoogle">Continue with Google</button>
@@ -582,6 +582,9 @@
 <script>
   const forms = {
     login: document.getElementById('loginForm'),
+    loginBtn.addEventListener('click', function () {
+    window.location.href = 'quidly_dashboard_v5_green_glow.html';
+});
     signup: document.getElementById('signupForm'),
     signupOtp: document.getElementById('signupOtpForm'),
     dashboard: document.getElementById('dashboardForm'),
